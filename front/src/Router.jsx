@@ -6,12 +6,14 @@ import SignUp from '@pages/SignUp';
 import Culture from '@pages/Culture';
 import Review from '@pages/Review';
 import Monthly from '@pages/Montly';
+import NavBar from '@components/NavBar';
 
 BrowserRouter;
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <NavBar />
       <Routes>
         <Route path={`${PAGE_URL.MAIN}`} element={<Main />} />
         <Route path={`${PAGE_URL.LOGIN}`} element={<Login />} />

@@ -15,6 +15,9 @@
 
 @layer components {
   .navBar_menu {
-    font-weight: 700;
+    font-weight: 500;
+  }
+  .navBar_menu_active {
+    font-weight: 800;
   }
 }
