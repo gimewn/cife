@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+@layer base {
+  html {
     background: radial-gradient(ellipse at top, #ff6060, transparent),
-    radial-gradient(ellipse at bottom, #9345e1, transparent);
+      radial-gradient(ellipse at bottom, #9345e1, transparent);
     background-repeat: no-repeat;
     height: 100vh;
     width: 100vw;
-    font-family: 'SUIT',  sans-serif;
+    font-family: 'SUIT', sans-serif;
+  }
+}
+
+@layer components {
+  .navBar_menu {
+    font-weight: 700;
+  }
 }
