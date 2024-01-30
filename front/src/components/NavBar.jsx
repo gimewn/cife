@@ -10,8 +10,13 @@ const NavBar = () => {
   return (
     <header className="border-black border-b">
       <section className="flex justify-between items-center py-7 px-12">
-        <img src={Logo} className="w-[4.6875rem]" />
+        <NavLink to={PAGE_URL.MAIN}>
+          <img src={Logo} className="w-[4.6875rem]" />
+        </NavLink>
         <section className="navBar_menu flex gap-6">
+          <NavLink to={PAGE_URL.MAIN} style={checkIsActive}>
+            <p>홈</p>
+          </NavLink>
           <NavLink to={PAGE_URL.CULTURE} style={checkIsActive}>
             <p>문화생활 관리</p>
           </NavLink>
