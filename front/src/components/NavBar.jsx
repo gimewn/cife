@@ -14,7 +14,7 @@ const NavBar = () => {
           <img src={Logo} className="w-[4.6875rem]" />
         </NavLink>
         <section className="navBar_menu flex gap-6">
-          <NavLink to={PAGE_URL.MAIN} style={checkIsActive}>
+          <NavLink to={PAGE_URL.HOME} style={checkIsActive}>
             <p>홈</p>
           </NavLink>
           <NavLink to={PAGE_URL.CULTURE} style={checkIsActive}>

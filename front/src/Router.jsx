@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { PAGE_URL } from './util/path';
-import Main from '@pages/Main';
+import Home from '@pages/Home';
 import Login from '@pages/Login';
 import SignUp from '@pages/SignUp';
 import Culture from '@pages/Culture';
@@ -15,7 +15,7 @@ const Router = () => {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path={`${PAGE_URL.MAIN}`} element={<Main />} />
+        <Route path={`${PAGE_URL.HOME}`} element={<Home />} />
         <Route path={`${PAGE_URL.LOGIN}`} element={<Login />} />
         <Route path={`${PAGE_URL.SIGNUP}`} element={<SignUp />} />
         <Route path={`${PAGE_URL.CULTURE}`} element={<Culture />} />

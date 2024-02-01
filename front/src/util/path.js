@@ -1,5 +1,5 @@
 export const PAGE_URL = {
-  MAIN: '/',
+  HOME: '/',
   LOGIN: '/login',
   SIGNUP: '/signup',
   CULTURE: '/culture',
