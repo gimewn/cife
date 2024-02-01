@@ -10,7 +10,7 @@ const NavBar = () => {
   return (
     <header className="border-black border-b">
       <section className="flex justify-between items-center py-7 px-12">
-        <NavLink to={PAGE_URL.MAIN}>
+        <NavLink to={PAGE_URL.HOME}>
           <img src={Logo} className="w-[4.6875rem]" />
         </NavLink>
         <section className="navBar_menu flex gap-6">

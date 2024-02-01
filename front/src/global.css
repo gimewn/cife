@@ -18,6 +18,7 @@
   .navBar_menu {
     font-weight: 500;
   }
+
   .bg-glass {
     background: rgba(255, 255, 255, 0.7);
     border-radius: 15px;
@@ -27,12 +28,25 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
     width: 100%;
   }
+
+  .bg-glass-full {
+    background: rgba(255, 255, 255);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.4px);
+    -webkit-backdrop-filter: blur(9.4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+  }
+
   .base {
     padding-top: 87px;
     max-width: 29.75rem;
     display: flex;
+    flex-direction: column;
     margin: 0 auto;
     justify-content: center;
+    align-items: center;
   }
 
   .btn-medium {
