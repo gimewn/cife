@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { PAGE_URL } from './util/path';
+import { PAGE_URL } from '@util/path';
 import Home from '@pages/Home';
 import Login from '@pages/Login';
 import SignUp from '@pages/SignUp';

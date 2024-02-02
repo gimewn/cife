@@ -8,7 +8,7 @@ const MenuCircle = ({ isFocus, image, title, onClickFun }) => {
       >
         <img src={image} className="w-16 h-16" />
       </div>
-      <p>{title}</p>
+      <p className={`${isFocus ? 'font-extrabold' : 'font-semibold'}`}>{title}</p>
     </div>
   );
 };

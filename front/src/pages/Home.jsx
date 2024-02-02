@@ -41,7 +41,7 @@ const Home = () => {
           onClickFun={() => onClickCategory(CATEGORY.REVIEW)}
         />
       </section>
-      <section className="mt-8">
+      <section className="w-full">
         {category === CATEGORY.RESERVATION && <ReservationList />}
         {category === CATEGORY.SEE && <SeeList />}
         {category === CATEGORY.REVIEW && <Review />}
