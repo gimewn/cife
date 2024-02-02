@@ -18,7 +18,7 @@ const ReservationList = () => {
       category: '뮤지컬',
       is_important: false,
       saw_date: '2024 - 11 - 30',
-      link: 'https://naver.com',
+      link: null,
     },
   ];
 
