@@ -1,13 +1,11 @@
-import { NavBar } from '@components/NavBar';
-import './App.css';
+import Router from './Router';
 
 function App() {
-
   return (
     <>
-      <NavBar />
+      <Router />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
