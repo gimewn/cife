@@ -56,11 +56,7 @@
     align-items: center;
   }
 
-  .btn-medium {
-    @apply rounded-2xl py-2 px-3 text-white w-fit;
-  }
-
-  .btn-small {
+  .btn {
     @apply rounded-lg py-2 px-3 text-white w-fit;
   }
 
@@ -71,6 +67,10 @@
   .d-day-title {
     font-family: 'Abril Fatface';
     @apply text-5xl;
+  }
+
+  .modal-title {
+    @apply font-extrabold text-2xl;
   }
 }
 

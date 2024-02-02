@@ -35,7 +35,7 @@ const SignUp = () => {
                 onChange={(e) => setUserId(e.target.value)}
               />
             </InputBox>
-            <button className="btn-small bg-red">중복확인</button>
+            <button className="btn bg-red">중복확인</button>
           </div>
           <InputBox>
             <img src={Lock} />
@@ -63,9 +63,9 @@ const SignUp = () => {
         </div>
         <div className="flex gap-3 w-full justify-end">
           <NavLink to={PAGE_URL.LOGIN}>
-            <button className="btn-small bg-purple">로그인</button>
+            <button className="btn bg-purple">로그인</button>
           </NavLink>
-          <button className="btn-small bg-red">회원가입</button>
+          <button className="btn bg-red">회원가입</button>
         </div>
       </LoginForm>
     </Main>

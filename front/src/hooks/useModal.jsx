@@ -11,12 +11,6 @@ const useModal = () => {
   const openModal = () => {
     setIsOpen(true);
     document.body.style.overflow = 'hidden';
-    console.log(
-      document.documentElement.scrollHeight,
-      window.innerHeight,
-      document.body.clientHeight,
-      checkIsScroll(),
-    );
     if (checkIsScroll()) {
       document.body.style.marginRight = '8px';
     }

@@ -9,10 +9,10 @@ const ReservationLinkModal = ({ closdModal }) => {
         <p className="font-bold">예매처 링크가 존재하지 않아요.</p>
       </div>
       <div className="flex gap-3 flex-1 w-full">
-        <button className="btn-small bg-gray w-full" onClick={closdModal}>
+        <button className="btn bg-gray w-full" onClick={closdModal}>
           닫기
         </button>
-        <button className="btn-small bg-red w-full">링크 입력하기</button>
+        <button className="btn bg-red w-full">링크 입력하기</button>
       </div>
     </div>
   );

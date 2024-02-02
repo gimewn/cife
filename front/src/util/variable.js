@@ -3,3 +3,9 @@ export const CATEGORY = {
   SEE: 'see',
   REVIEW: 'review',
 };
+
+export const MODALOPENER = {
+  DELETE: 'delete',
+  INPUT: 'input',
+  LINK: 'link',
+};
