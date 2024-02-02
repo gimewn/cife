@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import LoginForm from '@components/LoginForm';
-import Main from '@components/MainContainer';
-
 import User from '@assets/user.svg';
 import Lock from '@assets/lock.svg';
 import LockCheck from '@assets/lock_check.svg';
 
-import { PAGE_URL } from '@util/path';
+import LoginForm from '@components/LoginForm';
+import Main from '@components/MainContainer';
 import InputBox from '@components/InputBox';
+
+import { PAGE_URL } from '@util/path';
 
 const SignUp = () => {
   const [userId, setUserId] = useState('');

@@ -1,11 +1,14 @@
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import User from '@assets/user.svg';
 import Lock from '@assets/lock.svg';
-import { NavLink } from 'react-router-dom';
-import { PAGE_URL } from '@util/path';
-import { useState } from 'react';
+
 import Main from '@components/MainContainer';
 import LoginForm from '@components/LoginForm';
 import InputBox from '@components/InputBox';
+
+import { PAGE_URL } from '@util/path';
 
 const Login = () => {
   const [userId, setUserId] = useState('');

@@ -1,4 +1,4 @@
-import ModalPortal from './ModalPortal';
+import ModalPortal from '@components/Modal/ModalPortal';
 
 const BaseModal = ({ children, isOpen, closeModal }) => {
   return (

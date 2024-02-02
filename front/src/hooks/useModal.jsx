@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import BaseModal from '@components/Modal/BaseModal';
 
 const useModal = () => {

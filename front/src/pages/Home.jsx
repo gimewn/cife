@@ -1,14 +1,16 @@
-import Main from '@components/MainContainer';
 import { useState } from 'react';
 
 import Picture from '@assets/picture.png';
 import Pencil from '@assets/pencil.png';
-import MenuCircle from '@components/Home/MenuCircle';
-import { CATEGORY } from '@util/variable';
 import Cart from '@assets/cart.png';
+
+import Main from '@components/MainContainer';
+import MenuCircle from '@components/Home/MenuCircle';
 import ReservationList from '@components/Home/ReservationList';
 import SeeList from '@components/Home/SeeList';
-import Review from './Review';
+import ReviewList from '@components/Home/ReveiwList';
+
+import { CATEGORY } from '@util/variable';
 
 const Home = () => {
   const [category, setCategory] = useState(CATEGORY.RESERVATION);
@@ -44,7 +46,7 @@ const Home = () => {
       <section className="w-full">
         {category === CATEGORY.RESERVATION && <ReservationList />}
         {category === CATEGORY.SEE && <SeeList />}
-        {category === CATEGORY.REVIEW && <Review />}
+        {category === CATEGORY.REVIEW && <ReviewList />}
       </section>
     </Main>
   );

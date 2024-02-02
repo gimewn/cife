@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import DatePicker from '@components/DatePicker';
+import { useState } from 'react';
+
 import Calendar from '@assets/calendar.svg';
 
-const ReservationInputModal = ({ category, title, saw_date, closeModal }) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [isDateOpen, setIsDateOpen] = useState(false);
+import DatePicker from '@components/DatePicker';
 
-  useEffect(() => console.log(isDateOpen), [isDateOpen]);
+const ReservationInputModal = ({ category, title, reservated_date, closeModal }) => {
+  const [startDate, setStartDate] = useState(reservated_date);
+  const [isDateOpen, setIsDateOpen] = useState(false);
 
   return (
     <div className="flex flex-col items-center gap-6">

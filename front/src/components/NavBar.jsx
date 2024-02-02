@@ -1,5 +1,6 @@
-import Logo from '@assets/logo.png';
 import { NavLink } from 'react-router-dom';
+
+import Logo from '@assets/logo.png';
 
 import { PAGE_URL } from '@util/path';
 
