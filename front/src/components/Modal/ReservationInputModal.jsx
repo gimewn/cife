@@ -4,8 +4,8 @@ import Calendar from '@assets/calendar.svg';
 
 import DatePicker from '@components/DatePicker';
 
-const ReservationInputModal = ({ category, title, reservated_date, closeModal }) => {
-  const [startDate, setStartDate] = useState(reservated_date);
+const ReservationInputModal = ({ category, title, reserved_date, closeModal }) => {
+  const [startDate, setStartDate] = useState(reserved_date);
   const [isDateOpen, setIsDateOpen] = useState(false);
 
   return (

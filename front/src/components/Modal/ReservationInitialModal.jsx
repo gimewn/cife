@@ -1,4 +1,4 @@
-const ReservationInitailModal = ({ category, title, closeModal }) => {
+const ReservationInitialModal = ({ category, title, closeModal }) => {
   return (
     <div className="flex flex-col items-center gap-6">
       <p className="modal-title">
@@ -15,4 +15,4 @@ const ReservationInitailModal = ({ category, title, closeModal }) => {
   );
 };
 
-export default ReservationInitailModal;
+export default ReservationInitialModal;

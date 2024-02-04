@@ -4,7 +4,7 @@ export const CATEGORY = {
   REVIEW: 'review',
 };
 
-export const MODALOPENER = {
+export const MODAL_OPENER = {
   DELETE: 'delete',
   INPUT: 'input',
   LINK: 'link',
@@ -19,7 +19,7 @@ export const DUMMY_DATA = [
     category: '뮤지컬',
     is_important: true,
     saw_date: '2024 - 11 - 30',
-    reservated_date: '2024-10-02',
+    reserved_date: '2024-10-02',
     link: 'https://naver.com',
   },
   {
@@ -29,7 +29,7 @@ export const DUMMY_DATA = [
     category: '뮤지컬',
     is_important: false,
     saw_date: '2024 - 11 - 30',
-    reservated_date: '2024-10-02',
+    reserved_date: '2024-10-02',
     link: null,
   },
 ];
