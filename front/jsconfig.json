@@ -6,7 +6,9 @@
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
-      "@util/*": ["src/util/*"]
+      "@util/*": ["src/util/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@/*": ["src/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

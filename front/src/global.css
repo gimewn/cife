@@ -3,14 +3,19 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  body {
     background: radial-gradient(ellipse at top, #ff6060, transparent),
       radial-gradient(ellipse at bottom, #9345e1, transparent);
     background-repeat: no-repeat;
-    height: 100vh;
-    width: 100vw;
-    font-family: 'SUIT', sans-serif;
+    font-family: 'SUIT', 'Abril Fatface', sans-serif;
     font-weight: 500;
+    min-height: 100vh;
+    padding-bottom: 50px;
+  }
+
+  h1,
+  p {
+    line-height: 1;
   }
 }
 
@@ -18,28 +23,66 @@
   .navBar_menu {
     font-weight: 500;
   }
+
   .bg-glass {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     border-radius: 15px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(9.4px);
-    -webkit-backdrop-filter: blur(9.4px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
+
+  .bg-focus-white {
+    background: white;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .bg-modal {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
   .base {
     padding-top: 87px;
     max-width: 29.75rem;
     display: flex;
+    flex-direction: column;
     margin: 0 auto;
     justify-content: center;
+    align-items: center;
   }
 
-  .btn-medium {
-    @apply rounded-2xl py-2 px-3 text-white w-fit;
-  }
-
-  .btn-small {
+  .btn {
     @apply rounded-lg py-2 px-3 text-white w-fit;
   }
+
+  .main-section-title {
+    @apply my-10 text-2xl font-extrabold;
+  }
+
+  .d-day-title {
+    font-family: 'Abril Fatface';
+    @apply text-5xl;
+  }
+
+  .modal-title {
+    @apply font-extrabold text-2xl;
+  }
+}
+
+/* 스크롤바 커스텀 */
+
+body::-webkit-scrollbar {
+  width: 8px; /* 스크롤바의 너비 */
+}
+
+body::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: #9345e1; /* 스크롤바의 색상 */
+
+  border-radius: 15px;
 }

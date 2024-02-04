@@ -1,11 +1,14 @@
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import User from '@assets/user.svg';
 import Lock from '@assets/lock.svg';
-import { NavLink } from 'react-router-dom';
-import { PAGE_URL } from '@util/path';
-import { useState } from 'react';
+
 import Main from '@components/MainContainer';
 import LoginForm from '@components/LoginForm';
 import InputBox from '@components/InputBox';
+
+import { PAGE_URL } from '@util/path';
 
 const Login = () => {
   const [userId, setUserId] = useState('');
@@ -37,9 +40,9 @@ const Login = () => {
         </div>
         <div className="flex gap-3 w-full justify-end">
           <NavLink to={PAGE_URL.SIGNUP}>
-            <button className="btn-small bg-purple">회원가입</button>
+            <button className="btn bg-purple">회원가입</button>
           </NavLink>
-          <button className="btn-small bg-red">로그인</button>
+          <button className="btn bg-red">로그인</button>
         </div>
       </LoginForm>
     </Main>

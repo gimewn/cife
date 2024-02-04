@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import LoginForm from '@components/LoginForm';
-import Main from '@components/MainContainer';
-
 import User from '@assets/user.svg';
 import Lock from '@assets/lock.svg';
 import LockCheck from '@assets/lock_check.svg';
 
-import { PAGE_URL } from '@util/path';
+import LoginForm from '@components/LoginForm';
+import Main from '@components/MainContainer';
 import InputBox from '@components/InputBox';
+
+import { PAGE_URL } from '@util/path';
 
 const SignUp = () => {
   const [userId, setUserId] = useState('');
@@ -35,7 +35,7 @@ const SignUp = () => {
                 onChange={(e) => setUserId(e.target.value)}
               />
             </InputBox>
-            <button className="btn-small bg-red">중복확인</button>
+            <button className="btn bg-red">중복확인</button>
           </div>
           <InputBox>
             <img src={Lock} />
@@ -63,9 +63,9 @@ const SignUp = () => {
         </div>
         <div className="flex gap-3 w-full justify-end">
           <NavLink to={PAGE_URL.LOGIN}>
-            <button className="btn-small bg-purple">로그인</button>
+            <button className="btn bg-purple">로그인</button>
           </NavLink>
-          <button className="btn-small bg-red">회원가입</button>
+          <button className="btn bg-red">회원가입</button>
         </div>
       </LoginForm>
     </Main>
