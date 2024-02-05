@@ -86,3 +86,23 @@ body::-webkit-scrollbar-thumb {
 
   border-radius: 15px;
 }
+
+.react-datepicker__input-container input {
+  width: 95px;
+}
+
+select {
+  -webkit-appearance: none; /* for chrome */
+
+  -moz-appearance: none; /*for firefox*/
+
+  appearance: none;
+}
+
+select::-ms-expand {
+  display: none; /*for IE10,11*/
+}
+
+select {
+  background: url('assets/down_arrow.svg') no-repeat 97% 50%/15px auto;
+}
