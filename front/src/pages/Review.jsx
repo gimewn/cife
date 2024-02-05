@@ -5,7 +5,7 @@ const Review = () => {
   return (
     <>
       <h1>리뷰</h1>
-      <p>{state.cultureId}</p>
+      {state && <p>{state.cultureId}</p>}
     </>
   );
 };
