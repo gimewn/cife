@@ -77,12 +77,12 @@
 /* 스크롤바 커스텀 */
 
 *::-webkit-scrollbar {
-  width: 8px; /* 스크롤바의 너비 */
+  width: 8px;
 }
 
 *::-webkit-scrollbar-thumb {
-  height: 30%; /* 스크롤바의 길이 */
-  background: #9345e1; /* 스크롤바의 색상 */
+  height: 30%;
+  background: #9345e1;
 
   border-radius: 15px;
 }
@@ -105,4 +105,9 @@ select::-ms-expand {
 
 select {
   background: url('assets/down_arrow.svg') no-repeat 97% 50%/15px auto;
+}
+
+.swiper-slide-prev div,
+.swiper-slide-next div {
+  @apply bg-slate-200;
 }

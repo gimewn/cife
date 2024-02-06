@@ -44,7 +44,7 @@ const ReviewEdit = () => {
           onChange={(e) => setReview(e.target.value)}
         />
         <button className="btn bg-purple ml-auto">
-          {state.reviewId ? '수정 완료' : '등록하기'}
+          {state && state.reviewId ? '수정 완료' : '등록하기'}
         </button>
       </section>
     </Main>
