@@ -2,4 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="User">
+    <select id="checkIsIdExist" parameterType="String" resultType="boolean">
+        select exists(select 1 from user where id = #{checkId}) as result;
+    </select>
 </mapper>
