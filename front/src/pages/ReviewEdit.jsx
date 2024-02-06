@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 import ScoreStar from '@assets/score_star.svg';
 import ScoreStarDisabled from '@assets/score_star_disabled.svg';
-import WritingHand from '@assets/writing_hand.png';
 
 import Main from '@components/MainContainer';
 

@@ -21,6 +21,9 @@ export default {
         base: '1rem',
         sm: '.875rem',
       },
+      fontFamily: {
+        serif: 'Abril Fatface',
+      },
     },
   },
   plugins: [],
