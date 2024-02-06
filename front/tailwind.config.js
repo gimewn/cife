@@ -9,7 +9,7 @@ export default {
         gray: '#838383',
       },
       boxShadow: {
-        custom: '0 0 5px 0 rgba(0,0,0,0.25)',
+        custom: '0px 0px 24px 3px #555555',
       },
       fontSize: {
         '5xl': '2.1875rem',
@@ -20,6 +20,9 @@ export default {
         lg: '1.125rem',
         base: '1rem',
         sm: '.875rem',
+      },
+      fontFamily: {
+        serif: 'Abril Fatface',
       },
     },
   },

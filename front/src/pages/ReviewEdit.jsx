@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 import ScoreStar from '@assets/score_star.svg';
 import ScoreStarDisabled from '@assets/score_star_disabled.svg';
-import WritingHand from '@assets/writing_hand.png';
 
 import Main from '@components/MainContainer';
 
@@ -45,7 +44,7 @@ const ReviewEdit = () => {
           onChange={(e) => setReview(e.target.value)}
         />
         <button className="btn bg-purple ml-auto">
-          {state.reviewId ? '수정 완료' : '등록하기'}
+          {state && state.reviewId ? '수정 완료' : '등록하기'}
         </button>
       </section>
     </Main>
