@@ -127,6 +127,12 @@ const CultureDetail = () => {
             <p className="text-2xl">✍🏻</p>
             {expectationText()}
           </CultureDetailItem>
+          <button
+            className="btn bg-purple w-full py-3"
+            onClick={() => navigate(PAGE_URL.REVIEW_EDIT)}
+          >
+            후기 작성하기
+          </button>
         </div>
       </Main>
       <BaseModal isOpen={isOpen} closeModal={closeModal}>

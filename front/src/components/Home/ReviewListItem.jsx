@@ -17,7 +17,7 @@ const ReviewListItem = ({ item }) => {
   );
   const onClickCultureDeleteButton = useStopPropagation(openModal);
   const onClickGoToReviewButton = useStopPropagation(() =>
-    navigate(PAGE_URL.REVIEW, {
+    navigate(PAGE_URL.REVIEW_EDIT, {
       state: {
         cultureId: item.culture_id,
       },
