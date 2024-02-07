@@ -5,6 +5,8 @@ import com.cife.Cife.repository.CultureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CultureService {
@@ -28,5 +30,9 @@ public class CultureService {
 
     public CultureDTO getCultureOne(Long cultureId) {
         return cultureRepository.getCultureOne(cultureId);
+    }
+
+    public List<CultureDTO> getCultureList(Long userId) {
+        return cultureRepository.getCultureList(userId);
     }
 }

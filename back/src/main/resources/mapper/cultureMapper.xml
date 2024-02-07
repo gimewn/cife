@@ -33,4 +33,9 @@
     <select id="selectCultureOne" parameterType="long" resultMap="cultureMap">
         select * from culture where culture_id = #{cultureId}
     </select>
+
+    <select id="selectCultureList" parameterType="Long" resultMap="cultureMap">
+        select * from culture where user_id = #{userId}
+    </select>
+
 </mapper>

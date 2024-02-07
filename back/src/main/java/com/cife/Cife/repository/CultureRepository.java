@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class CultureRepository {
@@ -28,5 +30,9 @@ public class CultureRepository {
 
     public CultureDTO getCultureOne(Long cultureId) {
         return sql.selectOne("Culture.selectCultureOne", cultureId);
+    }
+
+    public List<CultureDTO> getCultureList(Long userId) {
+        return sql.selectList("Culture.selectCultureList", userId);
     }
 }
