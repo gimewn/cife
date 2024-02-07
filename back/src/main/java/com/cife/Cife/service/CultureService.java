@@ -21,4 +21,8 @@ public class CultureService {
     public Long getCultureWriter(Long cultureId){
         return cultureRepository.getCultureWriter(cultureId);
     }
+
+    public int deleteCulture(Long cultureId) {
+        return cultureRepository.deleteCulture(cultureId);
+    }
 }

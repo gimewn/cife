@@ -6,6 +6,7 @@ import com.cife.Cife.service.CultureService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.valves.rewrite.RewriteCond;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,16 @@ import java.sql.Date;
 @Tag(name = "문화생활 관리")
 public class CultureController {
     private final CultureService cultureService;
+
+    public Boolean checkCultureAuth(Long cultureId, Long userId){
+        Long cultureWriter = cultureService.getCultureWriter(cultureId);
+
+        if(cultureWriter != userId){
+            return false;
+        }else{
+            return true;
+        }
+    }
     @PostMapping("/")
     @Operation(summary = "문화생활 등록", description = "문화생활을 등록합니다.")
     public ResponseEntity<?> postCulture(@RequestBody CultureDTO cultureDTO, @SessionAttribute Long userId){
@@ -35,9 +46,7 @@ public class CultureController {
     @Operation(summary = "문화생활 수정", description = "특정 문화생활을 수정합니다.")
     public ResponseEntity<?> updateCulture(@RequestParam("culture_id") Long cultureId, @SessionAttribute Long userId, @RequestBody CultureDTO cultureDTO){
 
-        Long cultureWriter = cultureService.getCultureWriter(cultureId);
-
-        if(cultureWriter != userId){
+        if(!checkCultureAuth(cultureId, userId)){
             return ResponseEntity.status(403).body("해당 유저가 등록한 문화생활이 아닙니다.");
         }
 
@@ -47,6 +56,21 @@ public class CultureController {
         int updateResult = cultureService.updateCulture(cultureDTO);
 
         if(updateResult >= 1){
+            return ResponseEntity.ok().body("success");
+        }else{
+            return ResponseEntity.badRequest().body("fail");
+        }
+    }
+
+    @DeleteMapping("/")
+    @Operation(summary = "문화생활 삭제", description = "문화생활을 삭제합니다.")
+    public ResponseEntity<?> deleteCulture(@RequestParam Long cultureId, @SessionAttribute Long userId){
+        if(!checkCultureAuth(cultureId, userId)){
+            return ResponseEntity.status(403).body("해당 유저가 등록한 문화생활이 아닙니다.");
+        }
+        int deleteResult = cultureService.deleteCulture(cultureId);
+
+        if(deleteResult >= 1){
             return ResponseEntity.ok().body("success");
         }else{
             return ResponseEntity.badRequest().body("fail");

@@ -21,4 +21,8 @@ public class CultureRepository {
     public Long getCultureWriter(Long cultureId) {
         return sql.selectOne("Culture.getCultureWriter", cultureId);
     }
+
+    public int deleteCulture(Long cultureId) {
+        return sql.delete("Culture.deleteCulture", cultureId);
+    }
 }

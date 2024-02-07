@@ -9,9 +9,12 @@
     <update id="updateCulture" parameterType="culture">
         update culture set category_id=#{categoryId}, title=#{title}, saw_date=#{sawDate},
         reserved_date=#{reservedDate}, limit_Date=#{limitDate}, is_important=#{isImportant},
-        link=#{link}, expectation=#{expectation} where culture_id=#{cultureId}
+        link=#{link}, expectation=#{expectation} where culture_id = #{cultureId}
     </update>
-    <select id="getCultureWriter" parameterType="Long" resultType="long">
-        select user_id from culture where culture_id=#{cultureId}
+    <select id="getCultureWriter" parameterType="long" resultType="long">
+        select user_id from culture where culture_id = #{cultureId}
     </select>
+    <delete id="deleteCulture" parameterType="long">
+        delete from culture where culture_id = #{cultureId}
+    </delete>
 </mapper>
