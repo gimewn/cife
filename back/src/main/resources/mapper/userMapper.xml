@@ -5,4 +5,7 @@
     <select id="checkIsIdExist" parameterType="String" resultType="boolean">
         select exists(select 1 from user where id = #{checkId}) as result;
     </select>
+    <insert id="signUp" parameterType="user">
+        insert into user(id, password) values(#{id}, #{password})
+    </insert>
 </mapper>
