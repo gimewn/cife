@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +35,9 @@ public class CultureService {
 
     public List<CultureDTO> getCultureList(Long userId) {
         return cultureRepository.getCultureList(userId);
+    }
+
+    public int updateReservedDate(Map<String, Object> patchParam) {
+        return cultureRepository.updateReservedDate(patchParam);
     }
 }

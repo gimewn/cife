@@ -64,4 +64,8 @@
         (select culture_id from review where culture_id = culture.culture_id) is null
     </select>
 
+    <update id="updateReservedDate" parameterType="Map">
+        update culture set reserved_date = #{date} where culture_id = #{cultureId}
+    </update>
+
 </mapper>

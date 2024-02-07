@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -34,5 +35,9 @@ public class CultureRepository {
 
     public List<CultureDTO> getCultureList(Long userId) {
         return sql.selectList("Culture.getCultureList", userId);
+    }
+
+    public int updateReservedDate(Map<String, Object> patchParam) {
+        return sql.update("Culture.updateReservedDate", patchParam);
     }
 }
