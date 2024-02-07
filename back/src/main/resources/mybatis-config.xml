@@ -4,5 +4,6 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.cife.Cife.dto.UserDTO" alias="user" />
+        <typeAlias type="com.cife.Cife.dto.CultureDTO" alias="culture" />
     </typeAliases>
 </configuration>

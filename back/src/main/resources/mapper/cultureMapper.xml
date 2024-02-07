@@ -2,4 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Culture">
+    <insert id="postCulture" parameterType="culture">
+        insert into culture(user_id, category_id, title, saw_date, reserved_date, limit_date, is_important, link, expectation)
+        values(#{userId}, #{categoryId}, #{title}, #{sawDate}, #{reservedDate}, #{limitDate}, #{isImportant}, #{link}, #{expectation});
+    </insert>
+    <update id="updateCulture" parameterType="culture">
+        update culture set category_id=#{categoryId}, title=#{title}, saw_date=#{sawDate},
+        reserved_date=#{reservedDate}, limit_Date=#{limitDate}, is_important=#{isImportant},
+        link=#{link}, expectation=#{expectation} where culture_id=#{cultureId}
+    </update>
+    <select id="getCultureWriter" parameterType="Long" resultType="long">
+        select user_id from culture where culture_id=#{cultureId}
+    </select>
 </mapper>
