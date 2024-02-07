@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/culture")
-@Tag(name = "문화생활 관리")
+@Tag(name = "문화생활 관리 API")
 public class CultureController {
     private final CultureService cultureService;
 
@@ -30,7 +30,7 @@ public class CultureController {
             return true;
         }
     }
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "문화생활 등록", description = "문화생활을 등록합니다.")
     public ResponseEntity<?> postCulture(@RequestBody CultureDTO cultureDTO, @SessionAttribute Long userId){
         cultureDTO.setUserId(userId);
@@ -43,7 +43,7 @@ public class CultureController {
         }
     }
 
-    @PutMapping("/")
+    @PutMapping
     @Operation(summary = "문화생활 수정", description = "특정 문화생활을 수정합니다.")
     public ResponseEntity<?> updateCulture(@RequestParam("culture_id") Long cultureId, @SessionAttribute Long userId, @RequestBody CultureDTO cultureDTO){
 
@@ -63,7 +63,7 @@ public class CultureController {
         }
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping
     @Operation(summary = "문화생활 삭제", description = "문화생활을 삭제합니다.")
     public ResponseEntity<?> deleteCulture(@RequestParam Long cultureId, @SessionAttribute Long userId){
         if(!checkCultureAuth(cultureId, userId)){
@@ -78,7 +78,7 @@ public class CultureController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping
     @Operation(summary = "특정 문화생활 조회", description = "특정 문화생활을 조회합니다.")
     public ResponseEntity<?> getCultureOne(@RequestParam Long cultureId, @SessionAttribute Long userId){
 

@@ -15,7 +15,7 @@ import javax.naming.Name;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/")
-@Tag(name = "회원 관리")
+@Tag(name = "회원 관리 API")
 public class UserController {
     private final UserService userService;
 

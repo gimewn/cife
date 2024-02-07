@@ -30,12 +30,38 @@
     <delete id="deleteCulture" parameterType="long">
         delete from culture where culture_id = #{cultureId}
     </delete>
-    <select id="selectCultureOne" parameterType="long" resultMap="cultureMap">
+    <select id="getCultureOne" parameterType="long" resultMap="cultureMap">
         select * from culture where culture_id = #{cultureId}
     </select>
 
-    <select id="selectCultureList" parameterType="Long" resultMap="cultureMap">
+    <select id="getCultureList" parameterType="Long" resultMap="cultureMap">
         select * from culture where user_id = #{userId}
+    </select>
+
+    <select id="getReservationList" parameterType="Long" resultType="home">
+        select culture_id as cultureId, datediff(limit_date, now()) as dDay,
+        category.name as category, title, is_important as isImportant,
+        saw_date as sawDate, link
+        from culture join category on culture.category_id = category.category_id
+        where user_id = #{userId} and reserved_date is null
+    </select>
+
+    <select id="getSeeList" parameterType="Long" resultType="home">
+        select culture_id as cultureId, datediff(saw_date, now()) as dDay,
+        category.name as category, title, is_important as isImportant,
+        saw_date as sawDate, link
+        from culture join category on culture.category_id = category.category_id
+        where user_id = #{userId} and reserved_date is not null
+        group by culture_id having dDay &gt; 0
+    </select>
+
+    <select id="getNotReviewedList" parameterType="Long" resultType="home">
+        select culture_id as cultureId, datediff(saw_date, now()) as dDay,
+        category.name as category, title, is_important as isImportant,
+        saw_date as sawDate, link
+        from culture join category on culture.category_id = category.category_id
+        where user_id = #{userId} and reserved_date is not null and datediff(saw_date, now()) &lt;= 0 and
+        (select culture_id from review where culture_id = culture.culture_id) is null
     </select>
 
 </mapper>
