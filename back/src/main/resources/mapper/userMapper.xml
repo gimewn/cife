@@ -8,4 +8,7 @@
     <insert id="signUp" parameterType="user">
         insert into user(id, password) values(#{id}, #{password})
     </insert>
+    <select id="login" parameterType="user" resultType="long">
+        select user_id from user where id=#{id} and password=#{password}
+    </select>
 </mapper>

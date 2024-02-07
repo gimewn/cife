@@ -16,4 +16,8 @@ public class UserService {
     public int signUp(UserDTO userDTO) {
         return userRepository.signUp(userDTO);
     }
+
+    public Long login(UserDTO userDTO) {
+        return userRepository.login(userDTO);
+    }
 }

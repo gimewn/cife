@@ -16,4 +16,8 @@ public class UserRepository {
     public int signUp(UserDTO userDTO) {
         return sql.insert("User.signUp", userDTO);
     }
+
+    public Long login(UserDTO userDTO) {
+        return sql.selectOne("User.login", userDTO);
+    }
 }
