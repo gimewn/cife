@@ -76,4 +76,23 @@ public class CultureController {
             return ResponseEntity.badRequest().body("fail");
         }
     }
+
+    @GetMapping("/")
+    @Operation(summary = "특정 문화생활 조회", description = "특정 문화생활을 조회합니다.")
+    public ResponseEntity<?> getCultureOne(@RequestParam Long cultureId, @SessionAttribute Long userId){
+
+        if(!checkCultureAuth(cultureId, userId)){
+            return ResponseEntity.status(403).body("해당 유저가 등록한 문화생활이 아닙니다.");
+        }
+
+        CultureDTO cultureDTO = cultureService.getCultureOne(cultureId);
+
+        System.out.println("cultureDTO = " + cultureDTO);
+
+        if(cultureDTO != null) {
+            return ResponseEntity.ok().body(cultureDTO);
+        }else{
+            return ResponseEntity.badRequest().body("해당하는 문화생활이 존재하지 않습니다.");
+        }
+    }
 }

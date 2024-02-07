@@ -25,4 +25,8 @@ public class CultureRepository {
     public int deleteCulture(Long cultureId) {
         return sql.delete("Culture.deleteCulture", cultureId);
     }
+
+    public CultureDTO getCultureOne(Long cultureId) {
+        return sql.selectOne("Culture.selectCultureOne", cultureId);
+    }
 }

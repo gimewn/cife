@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Culture">
+    <resultMap id="cultureMap" type="culture">
+        <result property="cultureId" column="culture_id" />
+        <result property="categoryId" column="category_id" />
+        <result property="userId" column="user_id" />
+        <result property="title" column="title" />
+        <result property="sawDate" column="saw_date" />
+        <result property="reservedDate" column="reserved_date" />
+        <result property="limitDate" column="limit_date" />
+        <result property="isImportant" column="is_important" />
+        <result property="link" column="link" />
+        <result property="expectation" column="expectation" />
+    </resultMap>
+
     <insert id="postCulture" parameterType="culture">
         insert into culture(user_id, category_id, title, saw_date, reserved_date, limit_date, is_important, link, expectation)
         values(#{userId}, #{categoryId}, #{title}, #{sawDate}, #{reservedDate}, #{limitDate}, #{isImportant}, #{link}, #{expectation});
@@ -17,4 +30,7 @@
     <delete id="deleteCulture" parameterType="long">
         delete from culture where culture_id = #{cultureId}
     </delete>
+    <select id="selectCultureOne" parameterType="long" resultMap="cultureMap">
+        select * from culture where culture_id = #{cultureId}
+    </select>
 </mapper>
