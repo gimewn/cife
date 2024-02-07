@@ -12,12 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/culture")
-@Tag(name = "문화생활 관리")
+@Tag(name = "문화생활 관리 API")
 public class CultureController {
     private final CultureService cultureService;
 
@@ -30,7 +32,7 @@ public class CultureController {
             return true;
         }
     }
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "문화생활 등록", description = "문화생활을 등록합니다.")
     public ResponseEntity<?> postCulture(@RequestBody CultureDTO cultureDTO, @SessionAttribute Long userId){
         cultureDTO.setUserId(userId);
@@ -43,7 +45,7 @@ public class CultureController {
         }
     }
 
-    @PutMapping("/")
+    @PutMapping
     @Operation(summary = "문화생활 수정", description = "특정 문화생활을 수정합니다.")
     public ResponseEntity<?> updateCulture(@RequestParam("culture_id") Long cultureId, @SessionAttribute Long userId, @RequestBody CultureDTO cultureDTO){
 
@@ -63,7 +65,7 @@ public class CultureController {
         }
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping
     @Operation(summary = "문화생활 삭제", description = "문화생활을 삭제합니다.")
     public ResponseEntity<?> deleteCulture(@RequestParam Long cultureId, @SessionAttribute Long userId){
         if(!checkCultureAuth(cultureId, userId)){
@@ -78,7 +80,7 @@ public class CultureController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping
     @Operation(summary = "특정 문화생활 조회", description = "특정 문화생활을 조회합니다.")
     public ResponseEntity<?> getCultureOne(@RequestParam Long cultureId, @SessionAttribute Long userId){
 
@@ -104,6 +106,47 @@ public class CultureController {
         }else{
             return ResponseEntity.badRequest().body("해당 유저의 문화생활 목록이 존재하지 않습니다.");
         }
+    }
 
+    @PatchMapping("/reservation")
+    @Operation(summary = "예매일 수정", description = "특정 문화생활의 예매일을 수정합니다.")
+    public ResponseEntity<?> patchReservedDate(@RequestParam Long cultureId, @SessionAttribute Long userId, @RequestBody Date date){
+
+        if(!checkCultureAuth(cultureId, userId)){
+            return ResponseEntity.status(403).body("해당 유저가 등록한 문화생활이 아닙니다.");
+        }
+
+        Map<String, Object> patchParam = new HashMap<>();
+
+        patchParam.put("cultureId", cultureId);
+        patchParam.put("date", date);
+
+        int patchResult = cultureService.updateReservedDate(patchParam);
+
+        if(patchResult >= 1){
+            return ResponseEntity.ok().body("success");
+        }else{
+            return ResponseEntity.ok().body("fail");
+        }
+    }
+
+    @DeleteMapping("/reservation")
+    @Operation(summary = "예매일 삭제", description = "특정 문화생활의 예매일을 삭제합니다.")
+    public ResponseEntity<?> deleteReservedDate(@RequestParam Long cultureId, @SessionAttribute Long userId){
+        if(!checkCultureAuth(cultureId, userId)){
+            return ResponseEntity.status(403).body("해당 유저가 등록한 문화생활이 아닙니다.");
+        }
+        Map<String, Object> patchParam = new HashMap<>();
+
+        patchParam.put("cultureId", cultureId);
+        patchParam.put("date", null);
+
+        int patchResult = cultureService.updateReservedDate(patchParam);
+
+        if(patchResult >= 1){
+            return ResponseEntity.ok().body("success");
+        }else{
+            return ResponseEntity.ok().body("fail");
+        }
     }
 }
