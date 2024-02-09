@@ -33,5 +33,11 @@ public class MonthlyController {
         monthlyParam.put("month", month);
 
         List<CultureDTO> cultureDTOList = monthlyService.getMonthlyCultureList(monthlyParam);
+
+        if(cultureDTOList != null){
+            return ResponseEntity.ok().body(cultureDTOList);
+        }else{
+            return ResponseEntity.badRequest().body("해당하는 문화생활이 존재하지 않습니다.");
+        }
     }
 }

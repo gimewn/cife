@@ -71,4 +71,11 @@
         update culture set reserved_date = #{date} where culture_id = #{cultureId}
     </update>
 
+    <select id="getMonthlyCultureList" parameterType="Map" resultMap="cultureMap">
+        select culture.*, category.name as category from culture join category using(category_id)
+        where user_id = #{userId} and (year(saw_date) = #{year} or year(reserved_date) = #{year})
+        and (month(saw_date) = #{month} or month(reserved_Date) = #{month})
+        order by saw_date, reserved_date
+    </select>
+
 </mapper>
