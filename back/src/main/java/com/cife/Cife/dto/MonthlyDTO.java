@@ -6,19 +6,16 @@ import lombok.ToString;
 
 import java.sql.Date;
 
-
 @Getter
 @Setter
 @ToString
-public class CultureDTO {
+public class MonthlyDTO {
     private Long cultureId;
-    private Long userId;
-    private String category;
     private String title;
-    private Date sawDate;
-    private Date reservedDate;
-    private Date limitDate;
+    private String category;
     private Boolean isImportant;
-    private String link;
-    private String expectation;
+    private Integer score;
+    private Date reservedDate;
+    private Date sawDate;
+    private Long reviewId;
 }
