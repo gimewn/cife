@@ -4,7 +4,6 @@
 <mapper namespace="Culture">
     <resultMap id="cultureMap" type="culture">
         <result property="cultureId" column="culture_id" />
-        <result property="categoryId" column="category_id" />
         <result property="userId" column="user_id" />
         <result property="title" column="title" />
         <result property="sawDate" column="saw_date" />
@@ -19,23 +18,27 @@
         insert into culture(user_id, category_id, title, saw_date, reserved_date, limit_date, is_important, link, expectation)
         values(#{userId}, #{categoryId}, #{title}, #{sawDate}, #{reservedDate}, #{limitDate}, #{isImportant}, #{link}, #{expectation});
     </insert>
+
     <update id="updateCulture" parameterType="culture">
         update culture set category_id=#{categoryId}, title=#{title}, saw_date=#{sawDate},
         reserved_date=#{reservedDate}, limit_Date=#{limitDate}, is_important=#{isImportant},
         link=#{link}, expectation=#{expectation} where culture_id = #{cultureId}
     </update>
+
     <select id="getCultureWriter" parameterType="long" resultType="long">
         select user_id from culture where culture_id = #{cultureId}
     </select>
+
     <delete id="deleteCulture" parameterType="long">
         delete from culture where culture_id = #{cultureId}
     </delete>
+
     <select id="getCultureOne" parameterType="long" resultMap="cultureMap">
-        select * from culture where culture_id = #{cultureId}
+        select culture.*, category.name as category from culture join category using(category_id) where culture_id = #{cultureId}
     </select>
 
     <select id="getCultureList" parameterType="Long" resultMap="cultureMap">
-        select * from culture where user_id = #{userId}
+        select culture.*, category.name as category from culture join category using(category_id) where user_id = #{userId}
     </select>
 
     <select id="getReservationList" parameterType="Long" resultType="home">

@@ -13,7 +13,7 @@ import java.sql.Date;
 public class CultureDTO {
     private Long cultureId;
     private Long userId;
-    private Long categoryId;
+    private String category;
     private String title;
     private Date sawDate;
     private Date reservedDate;
