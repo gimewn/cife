@@ -14,22 +14,30 @@ import CultureEdit from '@pages/CultureEdit';
 import ReviewEdit from '@pages/ReviewEdit';
 
 import NavBar from '@components/NavBar';
+import NotFound from '@pages/NotFound';
+import AuthRequiredRoutes from '@util/AuthRequiredRoutes';
+import AuthManageRoutes from '@util/AuthManageRoutes';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path={`${PAGE_URL.HOME}`} element={<Home />} />
-        <Route path={`${PAGE_URL.LOGIN}`} element={<Login />} />
-        <Route path={`${PAGE_URL.SIGNUP}`} element={<SignUp />} />
-        <Route path={`${PAGE_URL.CULTURE}`} element={<Culture />} />
-        <Route path={`${PAGE_URL.CULTURE}/:cultureId`} element={<CultureDetail />} />
-        <Route path={`${PAGE_URL.CULTURE_EDIT}`} element={<CultureEdit />} />
-        <Route path={`${PAGE_URL.REVIEW}`} element={<Review />} />
-        <Route path={`${PAGE_URL.REVIEW}/:reviewId`} element={<ReviewDetail />} />
-        <Route path={`${PAGE_URL.REVIEW_EDIT}`} element={<ReviewEdit />} />
-        <Route path={`${PAGE_URL.MONTHLY}`} element={<Monthly />} />
+        <Route element={<AuthRequiredRoutes />}>
+          <Route path={`${PAGE_URL.HOME}`} element={<Home />} />
+          <Route path={`${PAGE_URL.CULTURE}`} element={<Culture />} />
+          <Route path={`${PAGE_URL.CULTURE}/:cultureId`} element={<CultureDetail />} />
+          <Route path={`${PAGE_URL.CULTURE_EDIT}`} element={<CultureEdit />} />
+          <Route path={`${PAGE_URL.REVIEW}`} element={<Review />} />
+          <Route path={`${PAGE_URL.REVIEW}/:reviewId`} element={<ReviewDetail />} />
+          <Route path={`${PAGE_URL.REVIEW_EDIT}`} element={<ReviewEdit />} />
+          <Route path={`${PAGE_URL.MONTHLY}`} element={<Monthly />} />
+        </Route>
+        <Route element={<AuthManageRoutes />}>
+          <Route path={`${PAGE_URL.LOGIN}`} element={<Login />} />
+          <Route path={`${PAGE_URL.SIGNUP}`} element={<SignUp />} />
+        </Route>
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

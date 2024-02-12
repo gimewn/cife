@@ -9,7 +9,7 @@ export default {
         gray: '#838383',
       },
       boxShadow: {
-        custom: '0px 0px 24px 3px #555555',
+        custom: '0px 0px 24px 3px rgba(0, 0, 0, .1);',
       },
       fontSize: {
         '5xl': '2.1875rem',
