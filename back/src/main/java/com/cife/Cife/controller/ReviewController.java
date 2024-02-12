@@ -64,8 +64,8 @@ public class ReviewController {
 
     @PutMapping
     @Operation(summary = "후기 수정", description = "후기를 수정합니다.")
-    public ResponseEntity<?> putReview(@SessionAttribute Long userId, @RequestBody ReviewDTO reviewDTO){
-        if(!checkReviewAuth(reviewDTO.getReviewId(), userId)){
+    public ResponseEntity<?> putReview(@SessionAttribute Long userId, @RequestParam Long reviewId, @RequestBody ReviewDTO reviewDTO){
+        if(!checkReviewAuth(reviewId, userId)){
             return ResponseEntity.status(403).body("해당 유저가 작성한 리뷰가 아닙니다.");
         }
 
