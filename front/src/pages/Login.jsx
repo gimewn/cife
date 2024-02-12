@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import User from '@assets/user.svg';
 import Lock from '@assets/lock.svg';
@@ -9,10 +9,22 @@ import LoginForm from '@components/LoginForm';
 import InputBox from '@components/InputBox';
 
 import { PAGE_URL } from '@util/path';
+import { login } from '@api/Login';
 
 const Login = () => {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const onClickLoginButton = async () => {
+    const result = await login(userId, password);
+    if (result === 'success') {
+      localStorage.setItem('isLogin', 1);
+      navigate(PAGE_URL.HOME);
+    } else if (result === 'fail') {
+      alert('로그인 정보를 다시 한 번 확인해주세요.');
+    }
+  };
 
   return (
     <Main>
@@ -42,7 +54,9 @@ const Login = () => {
           <NavLink to={PAGE_URL.SIGNUP}>
             <button className="btn bg-purple">회원가입</button>
           </NavLink>
-          <button className="btn bg-red">로그인</button>
+          <button className="btn bg-red" onClick={onClickLoginButton}>
+            로그인
+          </button>
         </div>
       </LoginForm>
     </Main>
