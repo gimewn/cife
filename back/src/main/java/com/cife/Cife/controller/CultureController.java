@@ -1,12 +1,10 @@
 package com.cife.Cife.controller;
 
 import com.cife.Cife.dto.CultureDTO;
-import com.cife.Cife.repository.CultureRepository;
 import com.cife.Cife.service.CultureService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.valves.rewrite.RewriteCond;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -38,10 +36,14 @@ public class CultureController {
         cultureDTO.setUserId(userId);
         int saveResult = cultureService.postCulture(cultureDTO);
 
+        Map<String, String> response = new HashMap<>();
+
         if(saveResult >= 1){
-            return ResponseEntity.ok().body("success");
+            response.put("result", "success");
+            return ResponseEntity.ok().body(response);
         }else{
-            return ResponseEntity.badRequest().body("fail");
+            response.put("result", "fail");
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
@@ -58,10 +60,14 @@ public class CultureController {
 
         int updateResult = cultureService.updateCulture(cultureDTO);
 
+        Map<String, String> response = new HashMap<>();
+
         if(updateResult >= 1){
-            return ResponseEntity.ok().body("success");
+            response.put("result", "success");
+            return ResponseEntity.ok().body(response);
         }else{
-            return ResponseEntity.badRequest().body("fail");
+            response.put("result", "fail");
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
@@ -73,10 +79,14 @@ public class CultureController {
         }
         int deleteResult = cultureService.deleteCulture(cultureId);
 
+        Map<String, String> response = new HashMap<>();
+
         if(deleteResult >= 1){
-            return ResponseEntity.ok().body("success");
+            response.put("result", "success");
+            return ResponseEntity.ok().body(response);
         }else{
-            return ResponseEntity.badRequest().body("fail");
+            response.put("result", "fail");
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
@@ -90,10 +100,14 @@ public class CultureController {
 
         CultureDTO cultureDTO = cultureService.getCultureOne(cultureId);
 
+        Map<String, Object> response = new HashMap<>();
+
         if(cultureDTO != null) {
-            return ResponseEntity.ok().body(cultureDTO);
+            response.put("result", cultureDTO);
+            return ResponseEntity.ok().body(response);
         }else{
-            return ResponseEntity.ok().body("해당하는 문화생활이 존재하지 않습니다.");
+            response.put("result", "해당하는 문화생활이 존재하지 않습니다.");
+            return ResponseEntity.ok().body(response);
         }
     }
     @GetMapping("/all")
@@ -101,9 +115,13 @@ public class CultureController {
     public ResponseEntity<?> getCultureList(@SessionAttribute Long userId){
         List<CultureDTO> getResult = cultureService.getCultureList(userId);
 
+        Map<String, Object> response = new HashMap<>();
+
         if(getResult != null){
+            response.put("result", getResult);
             return ResponseEntity.ok().body(getResult);
         }else{
+            response.put("result", "해당 유저의 문화생활 목록이 존재하지 않습니다.");
             return ResponseEntity.ok().body("해당 유저의 문화생활 목록이 존재하지 않습니다.");
         }
     }
@@ -112,8 +130,11 @@ public class CultureController {
     @Operation(summary = "예매일 수정", description = "특정 문화생활의 예매일을 수정합니다.")
     public ResponseEntity<?> patchReservedDate(@RequestParam Long cultureId, @SessionAttribute Long userId, @RequestBody Date date){
 
+        Map<String, String> response = new HashMap<>();
+
         if(!checkCultureAuth(cultureId, userId)){
-            return ResponseEntity.status(403).body("해당 유저가 등록한 문화생활이 아닙니다.");
+            response.put("result", "해당 유저가 등록한 문화생활이 아닙니다.");
+            return ResponseEntity.status(403).body(response);
         }
 
         Map<String, Object> patchParam = new HashMap<>();
@@ -124,17 +145,23 @@ public class CultureController {
         int patchResult = cultureService.updateReservedDate(patchParam);
 
         if(patchResult >= 1){
-            return ResponseEntity.ok().body("success");
+            response.put("result", "success");
+            return ResponseEntity.ok().body(response);
         }else{
-            return ResponseEntity.ok().body("fail");
+            response.put("result", "fail");
+            return ResponseEntity.ok().body(response);
         }
     }
 
     @DeleteMapping("/reservation")
     @Operation(summary = "예매일 삭제", description = "특정 문화생활의 예매일을 삭제합니다.")
     public ResponseEntity<?> deleteReservedDate(@RequestParam Long cultureId, @SessionAttribute Long userId){
+
+        Map<String, String> response = new HashMap<>();
+
         if(!checkCultureAuth(cultureId, userId)){
-            return ResponseEntity.status(403).body("해당 유저가 등록한 문화생활이 아닙니다.");
+            response.put("result", "해당 유저가 등록한 문화생활이 아닙니다.");
+            return ResponseEntity.status(403).body(response);
         }
         Map<String, Object> patchParam = new HashMap<>();
 
@@ -144,9 +171,11 @@ public class CultureController {
         int patchResult = cultureService.updateReservedDate(patchParam);
 
         if(patchResult >= 1){
-            return ResponseEntity.ok().body("success");
+            response.put("result", "success");
+            return ResponseEntity.ok().body(response);
         }else{
-            return ResponseEntity.ok().body("fail");
+            response.put("result", "fail");
+            return ResponseEntity.ok().body(response);
         }
     }
 }
