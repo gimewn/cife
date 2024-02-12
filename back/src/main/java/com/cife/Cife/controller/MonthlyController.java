@@ -34,10 +34,14 @@ public class MonthlyController {
 
         List<CultureDTO> cultureDTOList = monthlyService.getMonthlyCultureList(monthlyParam);
 
+        Map<String, Object> response = new HashMap<>();
+
         if(cultureDTOList != null){
-            return ResponseEntity.ok().body(cultureDTOList);
+            response.put("result", cultureDTOList);
+            return ResponseEntity.ok().body(response);
         }else{
-            return ResponseEntity.ok().body("해당하는 문화생활이 존재하지 않습니다.");
+            response.put("result", "해당하는 문화생활이 존재하지 않습니다.");
+            return ResponseEntity.ok().body(response);
         }
     }
 }
