@@ -7,5 +7,7 @@
         <typeAlias type="com.cife.Cife.dto.CultureDTO" alias="culture" />
         <typeAlias type="com.cife.Cife.dto.HomeDTO" alias="home" />
         <typeAlias type="com.cife.Cife.dto.MonthlyDTO" alias="monthly" />
+        <typeAlias type="com.cife.Cife.dto.ReviewListItemDTO" alias="reviewListItem" />
+        <typeAlias type="com.cife.Cife.dto.ReviewDTO" alias="review" />
     </typeAliases>
 </configuration>

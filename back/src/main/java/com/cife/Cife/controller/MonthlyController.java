@@ -37,7 +37,7 @@ public class MonthlyController {
         if(cultureDTOList != null){
             return ResponseEntity.ok().body(cultureDTOList);
         }else{
-            return ResponseEntity.badRequest().body("해당하는 문화생활이 존재하지 않습니다.");
+            return ResponseEntity.ok().body("해당하는 문화생활이 존재하지 않습니다.");
         }
     }
 }

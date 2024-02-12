@@ -93,10 +93,10 @@ public class CultureController {
         if(cultureDTO != null) {
             return ResponseEntity.ok().body(cultureDTO);
         }else{
-            return ResponseEntity.badRequest().body("해당하는 문화생활이 존재하지 않습니다.");
+            return ResponseEntity.ok().body("해당하는 문화생활이 존재하지 않습니다.");
         }
     }
-    @GetMapping("/cultureList")
+    @GetMapping("/all")
     @Operation(summary = "문화생활 목록 조회", description = "특정 유저가 등록한 문화생활 목록을 조회합니다.")
     public ResponseEntity<?> getCultureList(@SessionAttribute Long userId){
         List<CultureDTO> getResult = cultureService.getCultureList(userId);
@@ -104,7 +104,7 @@ public class CultureController {
         if(getResult != null){
             return ResponseEntity.ok().body(getResult);
         }else{
-            return ResponseEntity.badRequest().body("해당 유저의 문화생활 목록이 존재하지 않습니다.");
+            return ResponseEntity.ok().body("해당 유저의 문화생활 목록이 존재하지 않습니다.");
         }
     }
 

@@ -2,4 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Review">
+    <resultMap id="reviewListMap" type="reviewListItem">
+        <result property="reviewId" column="review_id" />
+        <result property="cultureId" column="culture_id" />
+        <result property="title" column="title" />
+        <result property="sawDate" column="saw_date" />
+        <result property="isImportant" column="is_important" />
+    </resultMap>
+    <resultMap id="reviewMap" type="review">
+        <result property="reviewId" column="review_id" />
+        <result property="cultureId" column="culture_id" />
+        <result property="userId" column="user_id" />
+    </resultMap>
+
+    <select id="getReviewList" parameterType="Long" resultMap="reviewListMap">
+        select r.review_id, r.culture_id, t.name as category, c.is_important, c.title, c.saw_date
+        from review r
+        join culture c using(culture_id)
+        join category t using(category_id)
+        where r.user_id = #{userId}
+    </select>
+
+    <select id="getReviewWriter" parameterType="Long" resultType="Long">
+        select user_id from review
+        where review_id = #{reviewId}
+    </select>
+
+    <select id="getReview" parameterType="Long" resultMap="reviewMap">
+        select * from review where review_id = #{reviewId}
+    </select>
+
+    <insert id="postReview" parameterType="review">
+        insert into review(user_id, culture_id, score, contents)
+        values(#{userId}, #{cultureId}, #{score}, #{contents})
+    </insert>
+
+    <update id="putReview" parameterType="review">
+        update review set score = #{score}, contents = #{contents}
+        where review_id = #{reviewId}
+    </update>
+
+    <delete id="deleteReview" parameterType="Long">
+        delete from review where review_id = #{reviewId}
+    </delete>
 </mapper>
