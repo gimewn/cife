@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Review">
+    <resultMap id="reviewListMap" type="reviewListItem">
+        <result property="reviewId" column="review_id" />
+        <result property="cultureId" column="culture_id" />
+        <result property="title" column="title" />
+        <result property="sawDate" column="saw_date" />
+        <result property="isImportant" column="is_important" />
+    </resultMap>
+
+    <select id="getReviewList" parameterType="Long" resultMap="reviewListMap">
+        select r.review_id, r.culture_id, t.name as category, c.is_important, c.title, c.saw_date
+        from review r
+        join culture c using(culture_id)
+        join category t using(category_id)
+        where r.user_id = #{userId}
+    </select>
 </mapper>

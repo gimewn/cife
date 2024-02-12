@@ -62,8 +62,6 @@ public class UserController {
         if(httpSession != null){
             // 세션 파기
             httpSession.invalidate();
-        }else{
-            System.out.println("엥 세션이 없다");
         }
         return ResponseEntity.ok().body("로그아웃 완료");
     }
