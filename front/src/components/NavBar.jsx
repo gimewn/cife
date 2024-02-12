@@ -45,7 +45,7 @@ const NavBar = () => {
           </NavLink>
           <NavLink
             to={!checkIsLogin() ? PAGE_URL.LOGIN : ''}
-            style={checkIsActive}
+            style={!checkIsLogin() ? checkIsActive : null}
             onClick={checkIsLogin() ? onClickLogoutButton : null}
           >
             <p>{checkIsLogin() ? '로그아웃' : '로그인'}</p>

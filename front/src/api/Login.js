@@ -14,6 +14,6 @@ export const login = async (id, password) => {
     const { result } = await response.json();
     return result;
   } catch (error) {
-    console.log('로그인 실패 : ', error);
+    console.log('로그인 실패 :', error);
   }
 };

@@ -13,6 +13,6 @@ export const logout = async () => {
     const { result } = await response.json();
     return result;
   } catch (err) {
-    console.log('로그아웃 실패 : ', err);
+    console.log('로그아웃 실패 :', err);
   }
 };
