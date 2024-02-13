@@ -20,6 +20,8 @@ const ReviewListItem = ({ item, refetch }) => {
   const onClickGoToReviewButton = useStopPropagation(() =>
     navigate(PAGE_URL.REVIEW_EDIT, {
       state: {
+        category: item.category,
+        title: item.title,
         cultureId: item.cultureId,
       },
     }),

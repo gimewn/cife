@@ -8,7 +8,7 @@ import Calendar from '@assets/calendar.svg';
 import SmileHeart from '@assets/smile_with_heart.png';
 import SlightlySmile from '@assets/slightly_smile.png';
 import { useQuery } from 'react-query';
-import { getCulture, updateCulture } from '@api/Culture';
+import { createCulture, getCulture, updateCulture } from '@api/Culture';
 import { CULTURE_CATEGORY } from '@util/variable';
 import { PAGE_URL } from '@util/path';
 
@@ -52,7 +52,7 @@ const CultureEdit = () => {
 
   const onClickConfirmButton = async () => {
     const data = {
-      cultureId: state.cultureId,
+      cultureId: state?.cultureId,
       categoryId: CULTURE_CATEGORY.indexOf(category) + 1,
       title: title,
       sawDate: sawDate,
@@ -61,10 +61,10 @@ const CultureEdit = () => {
       link: link,
       expectation: expectation,
     };
-    const func = state ? updateCulture : undefined;
+    const func = state ? updateCulture : createCulture;
     const result = await func(data);
     if (result == 'success') {
-      alert('수정이 완료되었습니다.');
+      alert('완료되었습니다.');
       window.location.href = PAGE_URL.CULTURE;
     } else {
       alert('다시 시도해주세요.');

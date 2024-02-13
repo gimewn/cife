@@ -110,3 +110,28 @@ export const updateCulture = async (cultureData) => {
     console.log('문화생활 수정 실패 :', err);
   }
 };
+
+export const createCulture = async (cultureData) => {
+  try {
+    const response = await interceptor(API_URL.CULTURE_CREATE, {
+      method: 'POST',
+      body: JSON.stringify({
+        categoryId: cultureData.categoryId,
+        title: cultureData.title,
+        sawDate: cultureData.sawDate,
+        reservedDate: cultureData.reservedDate,
+        limitDate: cultureData.limitDate,
+        isImportant: cultureData.isImportant,
+        link: cultureData.link,
+        expectation: cultureData.expectation,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error();
+    }
+    const { result } = await response.json();
+    return result;
+  } catch (err) {
+    console.log('문화생활 생성 실패 :', err);
+  }
+};

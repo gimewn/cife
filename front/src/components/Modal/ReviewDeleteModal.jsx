@@ -1,4 +1,13 @@
-const ReviewDeleteModal = ({ category, title, closeModal }) => {
+import { deleteReview } from '@api/Review';
+
+const ReviewDeleteModal = ({ category, title, closeModal, reviewId, refetch }) => {
+  const onClickDeleteButton = async (e) => {
+    const result = await deleteReview(reviewId);
+    if (result == 'success') {
+      closeModal(e.target.closest('.modalBase'));
+      refetch();
+    }
+  };
   return (
     <div className="flex flex-col items-center gap-6">
       <p className="modal-title">
@@ -9,7 +18,9 @@ const ReviewDeleteModal = ({ category, title, closeModal }) => {
         <button className="btn bg-gray w-full" onClick={closeModal}>
           취소
         </button>
-        <button className="btn bg-red w-full">삭제</button>
+        <button className="btn bg-red w-full" onClick={onClickDeleteButton}>
+          삭제
+        </button>
       </div>
     </div>
   );

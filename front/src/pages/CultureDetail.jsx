@@ -80,7 +80,6 @@ const CultureDetail = () => {
             <span className="font-bold text-2xl">기대평</span>
             <span>을 작성하셨어요.</span>
           </p>
-          <p>{data.expectation}</p>
         </>
       );
     } else {
@@ -91,14 +90,16 @@ const CultureDetail = () => {
   return (
     <>
       <Main className="w-full">
-        <div className="flex justify-between w-full items-center">
-          <div className="flex gap-2">
-            <h1 className="main-section-title my-0 text-3xl">
-              [{data.category}] {data.title}
-            </h1>
-            {data.isImportant && <img src={Star} />}
+        <div className="w-full">
+          <div className="flex justify-between w-full items-center mb-6">
+            <div className="flex gap-2">
+              <h1 className="main-section-title my-0 text-3xl">
+                [{data.category}] {data.title}
+              </h1>
+              {data.isImportant && <img src={Star} />}
+            </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-end">
             <button className="btn bg-black" onClick={openModal}>
               삭제하기
             </button>
@@ -116,6 +117,7 @@ const CultureDetail = () => {
             </button>
           </div>
         </div>
+
         <div className="flex flex-col w-full gap-6 mt-8">
           <CultureDetailItem>
             <p className="text-2xl">🔗</p>
@@ -130,12 +132,28 @@ const CultureDetail = () => {
             {sawDateText()}
           </CultureDetailItem>
           <CultureDetailItem>
-            <p className="text-2xl">✍🏻</p>
-            {expectationText()}
+            <>
+              <p className="text-2xl">✍🏻</p>
+              {expectationText()}
+            </>
           </CultureDetailItem>
+          {data.expectation && (
+            <textarea
+              value={data.expectation}
+              disabled
+              className="bg-white w-full min-h-60 rounded-lg p-3 outline-none"
+            ></textarea>
+          )}
           <button
             className="btn bg-purple w-full py-3"
-            onClick={() => navigate(PAGE_URL.REVIEW_EDIT)}
+            onClick={() =>
+              navigate(PAGE_URL.REVIEW_EDIT, {
+                state: {
+                  category: data.category,
+                  title: data.title,
+                },
+              })
+            }
           >
             후기 작성하기
           </button>

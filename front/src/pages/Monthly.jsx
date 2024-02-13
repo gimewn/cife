@@ -2,6 +2,7 @@ import Main from '@components/MainContainer';
 import LeftArrow from '@assets/left_arrow.svg';
 import RightArrow from '@assets/right_arrow.svg';
 import { useState } from 'react';
+import { useQuery } from 'react-query';
 import { MONTH_NAME } from '@util/variable';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCards } from 'swiper/modules';
@@ -10,6 +11,8 @@ import 'swiper/css';
 import 'swiper/css/effect-cards';
 
 import SwiperCard from '@components/Monthly/SwiperCard';
+import { getMonthlyCultureList } from '@api/Monthly';
+import Loader from '@components/Loader';
 
 const getNowMonth = () => {
   const now = new Date();
@@ -28,6 +31,12 @@ const Monthly = () => {
   const swiperOptions = {
     slideShadows: false,
   };
+
+  const { data, isLoading } = useQuery(['monthly', year, month], () =>
+    getMonthlyCultureList(year, month),
+  );
+
+  if (isLoading) return <Loader />;
 
   return (
     <Main className="w-full">
@@ -71,45 +80,11 @@ const Monthly = () => {
         cardsEffect={swiperOptions}
         loop={true}
       >
-        <SwiperSlide>
-          <SwiperCard
-            data={{
-              culture_id: 1,
-              category: '뮤지컬',
-              title: '난쟁이들',
-              reserved_date: '2024-11-31',
-              saw_date: '2024-03-15',
-              score: 4,
-              reviewId: 1,
-            }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SwiperCard
-            data={{
-              culture_id: 1,
-              category: '연극',
-              title: '난쟁이들',
-              reserved_date: '2024-11-31',
-              saw_date: '2024-03-15',
-              score: 4,
-              reviewId: 1,
-            }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SwiperCard
-            data={{
-              culture_id: 1,
-              category: '클래식',
-              title: '난쟁이들',
-              reserved_date: '2024-11-31',
-              saw_date: '2024-03-15',
-              score: 4,
-              reviewId: 1,
-            }}
-          />
-        </SwiperSlide>
+        {data.map((item) => (
+          <SwiperSlide key={item.cultureId}>
+            <SwiperCard data={item} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </Main>
   );

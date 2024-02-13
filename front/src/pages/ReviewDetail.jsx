@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import ScoreStar from '@assets/score_star.svg';
 import ScoreStarDisabled from '@assets/score_star_disabled.svg';
@@ -7,23 +7,24 @@ import SmileKitty from '@assets/smile_kitty.png';
 import Main from '@components/MainContainer';
 
 import { PAGE_URL } from '@util/path';
+import { useQuery } from 'react-query';
+import { getReview } from '@api/Review';
+import Loader from '@components/Loader';
 
 const ReviewDetail = () => {
-  const data = {
-    reviewId: 1,
-    category: '뮤지컬',
-    title: '난쟁이들',
-    score: 3,
-    review: null,
-  };
-
   const navigate = useNavigate();
+  const { reviewId } = useParams();
+  const { state } = useLocation();
+
+  const { data, isLoading } = useQuery(['reviewInfo'], () => getReview(reviewId));
+
+  if (isLoading) return <Loader />;
 
   return (
     <Main>
       <section className="w-full justify-center flex flex-col items-center gap-8">
         <h1 className="main-section-title m-0 text-3xl">
-          [{data.category}] {data.title}
+          [{state.category}] {state.title}
         </h1>
         <p>어떠셨나요?</p>
         <div className="flex gap-2 mb-2">
@@ -31,15 +32,14 @@ const ReviewDetail = () => {
             <img key={num} src={`${data.score >= num ? ScoreStar : ScoreStarDisabled}`} />
           ))}
         </div>
-        {data.review && (
+        {data.contents && (
           <textarea
             className="bg-white w-full min-h-60 rounded-lg p-3 outline-none"
-            onChange={(e) => setReview(e.target.value)}
-            value={data.review}
+            value={data.contents}
             disabled
           />
         )}
-        {!data.review && (
+        {!data.contents && (
           <div className="text-lg font-bold flex flex-col items-center gap-2">
             <img src={SmileKitty} className="w-2/3 mb-6" />
             <p>점수로만 평가하셨네요!</p>
@@ -52,6 +52,8 @@ const ReviewDetail = () => {
             navigate(PAGE_URL.REVIEW_EDIT, {
               state: {
                 reviewId: data.reviewId,
+                title: state.title,
+                category: state.category,
               },
             })
           }
