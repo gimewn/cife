@@ -16,6 +16,7 @@ const useModal = () => {
       document.body.style.marginRight = '8px';
     }
   };
+
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
       setIsOpen(false);

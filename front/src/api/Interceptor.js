@@ -1,8 +1,8 @@
 import { defaultFetchOptions } from '@util/options';
-import { RefreshSession } from './RefreshSession';
+import { refreshSession } from './RefreshSession';
 import { PAGE_URL } from '@util/path';
 
-export const Interceptor = async (url, options) => {
+export const interceptor = async (url, options) => {
   const response = await fetch(url, {
     ...options,
     ...defaultFetchOptions,
@@ -12,7 +12,7 @@ export const Interceptor = async (url, options) => {
     return response;
   }
 
-  const refreshResponse = await RefreshSession();
+  const refreshResponse = await refreshSession();
 
   if (refreshResponse.status === 401) {
     localStorage.removeItem('isLogin');
