@@ -20,7 +20,7 @@ export const API_URL = {
   LOGOUT: BASE_URL + '/logout',
   HOME_SEE_LIST: BASE_URL + '/seeList',
   HOME_RESERVATION: BASE_URL + '/reservation',
-  NOT_REVIEWED_LIST: BASE_URL + '/notReviewedList',
+  HOME_NOT_REVIEWED_LIST: BASE_URL + '/notReviewedList',
   MONTHLY: (year, month) => `${BASE_URL}/monthly?year=${year}&month=${month}`,
   CULTURE_RUD: (cultureId) => `${BASE_URL}/culture?cultureId=${cultureId}`,
   CULTURE_CREATE: BASE_URL + '/culture',

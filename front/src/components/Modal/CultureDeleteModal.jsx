@@ -1,10 +1,13 @@
 import { deleteCulture } from '@api/Culture';
 
-const CultureDeleteModal = ({ title, category, closeModal, cultureId }) => {
-  const onClickDeleteButton = async () => {
+const CultureDeleteModal = ({ title, category, closeModal, cultureId, refetch }) => {
+  const onClickDeleteButton = async (e) => {
     const result = await deleteCulture(cultureId);
     if (result === 'fail') {
       alert('다시 시도해주세요.');
+    } else {
+      closeModal(e.target.closest('.modalBase'));
+      refetch();
     }
   };
 

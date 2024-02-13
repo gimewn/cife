@@ -38,3 +38,19 @@ export const updateReservedDate = async (cultureId, date) => {
     console.log('예매일 수정 실패 :', err);
   }
 };
+
+export const deleteReservedDate = async (cultureId) => {
+  try {
+    const response = await interceptor(API_URL.RESERVATION_UD(cultureId), {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    const { result } = await response.json();
+    return result;
+  } catch (err) {
+    console.log('예매일 삭제 실패 :', err);
+  }
+};

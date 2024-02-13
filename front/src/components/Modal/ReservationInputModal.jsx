@@ -6,7 +6,14 @@ import Calendar from '@assets/calendar.svg';
 
 import DatePicker from '@components/DatePicker';
 
-const ReservationInputModal = ({ cultureId, category, title, reserved_date, closeModal }) => {
+const ReservationInputModal = ({
+  cultureId,
+  category,
+  title,
+  reserved_date,
+  closeModal,
+  refetch,
+}) => {
   const [startDate, setStartDate] = useState(reserved_date);
   const [isDateOpen, setIsDateOpen] = useState(false);
 
@@ -17,6 +24,7 @@ const ReservationInputModal = ({ cultureId, category, title, reserved_date, clos
       alert('다시 시도해주세요.');
     } else {
       closeModal(e.target.closest('.modalBase'));
+      refetch();
     }
   };
 

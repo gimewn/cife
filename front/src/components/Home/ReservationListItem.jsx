@@ -14,7 +14,7 @@ import { MODAL_OPENER } from '@util/variable';
 import { PAGE_URL } from '@util/path';
 import { formatDate } from '@util/funcs';
 
-const ReservationListItem = ({ item }) => {
+const ReservationListItem = ({ item, refetch }) => {
   const { BaseModal, isOpen, openModal, closeModal } = useModal();
   const [modalOpener, setModalOpener] = useState();
   const navigate = useNavigate();
@@ -75,6 +75,7 @@ const ReservationListItem = ({ item }) => {
             title={item.title}
             closeModal={closeModal}
             cultureId={item.cultureId}
+            refetch={refetch}
           />
         )}
         {modalOpener === MODAL_OPENER.INPUT && (
@@ -84,6 +85,7 @@ const ReservationListItem = ({ item }) => {
             closeModal={closeModal}
             reserved_date={new Date()}
             cultureId={item.cultureId}
+            refetch={refetch}
           />
         )}
         {modalOpener === MODAL_OPENER.LINK && (
