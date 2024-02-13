@@ -29,4 +29,5 @@ export const API_URL = {
   REVIEW_CREATE: BASE_URL + '/review',
   REVIEW_RUD: (reviewId) => `${BASE_URL}/review?reviewId=${reviewId}`,
   REVIEW_LIST: BASE_URL + '/review/all',
+  REFRESH_SESSION: BASE_URL + '/refreshSession',
 };

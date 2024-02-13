@@ -1,6 +1,8 @@
+import { getReservationList } from '@api/Home';
 import ReservationListItem from '@components/Home/ReservationListItem';
 
 import { DUMMY_DATA } from '@util/variable';
+import { useQuery } from 'react-query';
 
 const ReservationList = () => {
   return (
