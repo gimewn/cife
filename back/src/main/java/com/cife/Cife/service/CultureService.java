@@ -40,4 +40,8 @@ public class CultureService {
     public int updateReservedDate(Map<String, Object> patchParam) {
         return cultureRepository.updateReservedDate(patchParam);
     }
+
+    public boolean checkIsExistCategory(Long categoryId) {
+        return cultureRepository.checkIsExistCategory(categoryId);
+    }
 }

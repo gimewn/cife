@@ -13,6 +13,14 @@
         <result property="link" column="link" />
         <result property="expectation" column="expectation" />
     </resultMap>
+    <resultMap id="monthlyMap" type="monthly">
+        <result property="cultureId" column="culture_id" />
+        <result property="title" column="title" />
+        <result property="sawDate" column="saw_date" />
+        <result property="reservedDate" column="reserved_date" />
+        <result property="isImportant" column="is_important" />
+        <result property="reviewId" column="review_id" />
+    </resultMap>
 
     <insert id="postCulture" parameterType="culture">
         insert into culture(user_id, category_id, title, saw_date, reserved_date, limit_date, is_important, link, expectation)
@@ -26,7 +34,7 @@
     </update>
 
     <select id="getCultureWriter" parameterType="long" resultType="long">
-        select user_id from culture where culture_id = #{cultureId}
+        select user_id from culture where culture_id = #{cultureI}
     </select>
 
     <delete id="deleteCulture" parameterType="long">
@@ -39,6 +47,7 @@
 
     <select id="getCultureList" parameterType="Long" resultMap="cultureMap">
         select culture.*, category.name as category from culture join category using(category_id) where user_id = #{userId}
+        order by culture.culture_id desc
     </select>
 
     <select id="getReservationList" parameterType="Long" resultType="home">
@@ -46,16 +55,17 @@
         category.name as category, title, is_important as isImportant,
         saw_date as sawDate, link
         from culture join category on culture.category_id = category.category_id
-        where user_id = #{userId} and reserved_date is null
+        where user_id = #{userId} and reserved_date is null and datediff(limit_date, now()) >= 0
+        order by dDay
     </select>
 
     <select id="getSeeList" parameterType="Long" resultType="home">
         select culture_id as cultureId, datediff(saw_date, now()) as dDay,
         category.name as category, title, is_important as isImportant,
-        saw_date as sawDate, link
+        saw_date as sawDate, link, reserved_date as reservedDate
         from culture join category on culture.category_id = category.category_id
-        where user_id = #{userId} and reserved_date is not null
-        group by culture_id having dDay &gt; 0
+        where user_id = #{userId} and reserved_date is not null and datediff(saw_date, now()) > 0
+        order by dDay
     </select>
 
     <select id="getNotReviewedList" parameterType="Long" resultType="home">
@@ -65,17 +75,25 @@
         from culture join category on culture.category_id = category.category_id
         where user_id = #{userId} and reserved_date is not null and datediff(saw_date, now()) &lt;= 0 and
         (select culture_id from review where culture_id = culture.culture_id) is null
+        order by sawDate desc;
     </select>
 
     <update id="updateReservedDate" parameterType="Map">
         update culture set reserved_date = #{date} where culture_id = #{cultureId}
     </update>
 
-    <select id="getMonthlyCultureList" parameterType="Map" resultMap="cultureMap">
-        select culture.*, category.name as category from culture join category using(category_id)
-        where user_id = #{userId} and (year(saw_date) = #{year} or year(reserved_date) = #{year})
+    <select id="getMonthlyCultureList" parameterType="Map" resultMap="monthlyMap">
+        select culture.*, category.name as category, review.score as score,
+        review.review_id
+        from culture join category using(category_id)
+        join review using(culture_id)
+        where culture.user_id = #{userId} and (year(saw_date) = #{year} or year(reserved_date) = #{year})
         and (month(saw_date) = #{month} or month(reserved_Date) = #{month})
         order by saw_date, reserved_date
+    </select>
+
+    <select id="checkIsExistCategory" parameterType="Long" resultType="boolean">
+        select exists(select 1 from category where category_id = #{categoryId}) as result;
     </select>
 
 </mapper>

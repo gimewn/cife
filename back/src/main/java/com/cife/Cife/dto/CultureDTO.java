@@ -14,6 +14,7 @@ public class CultureDTO {
     private Long cultureId;
     private Long userId;
     private String category;
+    private Long categoryId;
     private String title;
     private Date sawDate;
     private Date reservedDate;

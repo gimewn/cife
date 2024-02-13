@@ -21,6 +21,7 @@
         join culture c using(culture_id)
         join category t using(category_id)
         where r.user_id = #{userId}
+        order by r.review_id desc
     </select>
 
     <select id="getReviewWriter" parameterType="Long" resultType="Long">

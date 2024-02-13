@@ -16,5 +16,6 @@ public class HomeDTO {
     private String title;
     private Boolean isImportant;
     private Date sawDate;
+    private Date reservedDate;
     private String link;
 }

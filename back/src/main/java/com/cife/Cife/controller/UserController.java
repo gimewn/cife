@@ -75,4 +75,22 @@ public class UserController {
         response.put("result", "success");
         return ResponseEntity.ok().body(response);
     }
+
+    @PostMapping("/refreshSession")
+    @Operation(summary = "세션 갱신", description = "세션을 갱신하고, 기존 세션이 만료된 경우 401 에러를 반환합니다.")
+    public ResponseEntity<?> refreshSession(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+
+        Map<String, String> result = new HashMap<>();
+
+        if(session == null){
+            result.put("result", "fail");
+            return ResponseEntity.status(401).body(result);
+        }else{
+            // 유효시간 1시간 설정
+            session.setMaxInactiveInterval(3600);
+            result.put("result", "success");
+            return ResponseEntity.ok().body(result);
+        }
+    }
 }
