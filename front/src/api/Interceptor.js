@@ -8,7 +8,7 @@ export const interceptor = async (url, options) => {
     ...defaultFetchOptions,
   });
 
-  if (response.status !== 401) {
+  if (response.status !== 400) {
     return response;
   }
 

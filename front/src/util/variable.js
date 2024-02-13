@@ -11,6 +11,8 @@ export const MODAL_OPENER = {
   INITIAL: 'initial',
 };
 
+export const CULTURE_CATEGORY = ['뮤지컬', '전시', '콘서트', '클래식/무용', '스포츠'];
+
 export const DUMMY_DATA = [
   {
     culture_id: 1,

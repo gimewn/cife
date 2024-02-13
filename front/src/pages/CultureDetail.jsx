@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 import Star from '@assets/star.svg';
 
@@ -7,15 +8,20 @@ import useModal from '@hooks/useModal';
 import Main from '@components/MainContainer';
 import CultureDetailItem from '@components/Culture/CultureDetailItem';
 import CultureDeleteModal from '@components/Modal/CultureDeleteModal';
+import Loader from '@components/Loader';
 
-import { DUMMY_DATA } from '@util/variable';
 import { PAGE_URL } from '@util/path';
+
+import { getCulture } from '@api/Culture';
+import { formatDate } from '@util/funcs';
 
 const CultureDetail = () => {
   const params = useParams();
-  const data = DUMMY_DATA[params.cultureId - 1];
+  const { data, isLoading } = useQuery(['cultureInfo'], () => getCulture(params.cultureId));
   const { BaseModal, isOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
+
+  if (isLoading) return <Loader />;
 
   const linkText = () => {
     if (data.link) {
@@ -36,10 +42,10 @@ const CultureDetail = () => {
   };
 
   const reservedDateText = () => {
-    if (data.reserved_date) {
+    if (data.reservedDate) {
       return (
         <p>
-          <span className="font-bold text-2xl">{data.reserved_date}</span>
+          <span className="font-bold text-2xl">{data.reservedDate}</span>
           <span>에 예매했어요.</span>
         </p>
       );
@@ -52,14 +58,14 @@ const CultureDetail = () => {
     if (data.saw_date >= new Date()) {
       return (
         <p>
-          <span className="font-bold text-2xl">{data.saw_date}</span>
+          <span className="font-bold text-2xl">{formatDate(data.sawDate)}</span>
           <span>에 관람 예정이에요.</span>
         </p>
       );
     } else {
       return (
         <p>
-          <span className="font-bold text-2xl">{data.saw_date}</span>
+          <span className="font-bold text-2xl">{formatDate(data.sawDate)}</span>
           <span>에 관람했어요.</span>
         </p>
       );
@@ -90,7 +96,7 @@ const CultureDetail = () => {
             <h1 className="main-section-title my-0 text-3xl">
               [{data.category}] {data.title}
             </h1>
-            {data.is_important && <img src={Star} />}
+            {data.isImportant && <img src={Star} />}
           </div>
           <div className="flex gap-2">
             <button className="btn bg-black" onClick={openModal}>
@@ -101,7 +107,7 @@ const CultureDetail = () => {
               onClick={() =>
                 navigate(PAGE_URL.CULTURE_EDIT, {
                   state: {
-                    cultureId: data.culture_id,
+                    cultureId: data.cultureId,
                   },
                 })
               }

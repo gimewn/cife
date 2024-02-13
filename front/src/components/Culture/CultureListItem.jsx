@@ -2,13 +2,15 @@ import { useNavigate } from 'react-router-dom';
 
 import Star from '@assets/star.svg';
 
+import CultureDeleteModal from '@components/Modal/CultureDeleteModal';
+
 import useModal from '@hooks/useModal';
 import useStopPropagation from '@hooks/useStopPropagation';
 
 import { PAGE_URL } from '@util/path';
-import CultureDeleteModal from '@components/Modal/CultureDeleteModal';
+import { formatDate } from '@util/funcs';
 
-const CultureListItem = ({ cultureId, title, category, isImportant, sawDate }) => {
+const CultureListItem = ({ cultureId, title, category, isImportant, sawDate, refetch }) => {
   const navigate = useNavigate();
 
   const { isOpen, openModal, closeModal, BaseModal } = useModal();
@@ -35,7 +37,7 @@ const CultureListItem = ({ cultureId, title, category, isImportant, sawDate }) =
           </p>
           {isImportant && <img src={Star} />}
         </div>
-        <p>{sawDate} 관람 예정</p>
+        <p className="text-sm">{formatDate(sawDate)} 관람 예정</p>
         <div className="flex gap-2">
           <button className="btn bg-red text-sm" onClick={onClickDeleteCultureButton}>
             삭제하기
@@ -46,7 +48,13 @@ const CultureListItem = ({ cultureId, title, category, isImportant, sawDate }) =
         </div>
       </div>
       <BaseModal isOpen={isOpen} closeModal={closeModal}>
-        <CultureDeleteModal closeModal={closeModal} category={category} title={title} />
+        <CultureDeleteModal
+          closeModal={closeModal}
+          category={category}
+          title={title}
+          cultureId={cultureId}
+          refetch={refetch}
+        />
       </BaseModal>
     </>
   );

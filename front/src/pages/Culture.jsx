@@ -6,10 +6,16 @@ import CultureListItem from '@components/Culture/CultureListItem';
 import { DUMMY_DATA } from '@util/variable';
 import { useNavigate } from 'react-router-dom';
 import { PAGE_URL } from '@util/path';
+import { useQuery } from 'react-query';
+import { getAllCultureList } from '@api/Culture';
+import Loader from '@components/Loader';
 
 const Culture = () => {
   const navigate = useNavigate();
   const onClickCreateCultureButton = () => navigate(PAGE_URL.CULTURE_EDIT);
+  const { data, isLoading, refetch } = useQuery(['cultureList'], getAllCultureList);
+
+  if (isLoading) return <Loader />;
   return (
     <Main>
       <h1 className="main-section-title w-full mt-0 mb-7">등록하신 문화생활 목록이에요.</h1>
@@ -20,14 +26,15 @@ const Culture = () => {
         >
           <img src={PlusButton} />
         </div>
-        {DUMMY_DATA.map((item) => (
+        {data.map((item) => (
           <CultureListItem
-            key={item.culture_id}
-            cultureId={item.culture_id}
+            key={item.cultureId}
+            cultureId={item.cultureId}
             category={item.category}
             title={item.title}
-            isImportant={item.is_important}
-            sawDate={item.saw_date}
+            isImportant={item.isImportant}
+            sawDate={item.sawDate}
+            refetch={refetch}
           />
         ))}
       </section>
