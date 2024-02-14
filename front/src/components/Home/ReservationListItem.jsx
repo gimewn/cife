@@ -12,14 +12,15 @@ import useStopPropagation from '@hooks/useStopPropagation';
 
 import { MODAL_OPENER } from '@util/variable';
 import { PAGE_URL } from '@util/path';
+import { formatDate } from '@util/funcs';
 
-const ReservationListItem = ({ item }) => {
+const ReservationListItem = ({ item, refetch }) => {
   const { BaseModal, isOpen, openModal, closeModal } = useModal();
   const [modalOpener, setModalOpener] = useState();
   const navigate = useNavigate();
 
   const onClickListItem = useStopPropagation(() =>
-    navigate(PAGE_URL.CULTURE_DETAIL(item.culture_id)),
+    navigate(PAGE_URL.CULTURE_DETAIL(item.cultureId)),
   );
 
   const onClickReserveLinkButton = useStopPropagation(() => {
@@ -47,14 +48,14 @@ const ReservationListItem = ({ item }) => {
         className="bg-glass flex flex-col items-center p-8 gap-6 cursor-pointer"
         onClick={onClickListItem}
       >
-        <p className="d-day-title">D-{item.d_day}</p>
-        <div className="flex justify-center items-center gap-1">
-          <p className="font-extrabold text-xl">
+        <p className="d-day-title">D-{item.dday}</p>
+        <div className="flex justify-center items-center gap-1 w-full">
+          <p className="font-extrabold text-xl whitespace-nowrap text-ellipsis overflow-hidden">
             [{item.category}] {item.title}
           </p>
-          {item.is_important && <img src={Star} />}
+          {item.isImportant && <img src={Star} />}
         </div>
-        <p className="font-semibold">{item.saw_date} 관람 예정</p>
+        <p className="font-semibold">{formatDate(item.sawDate)} 관람 예정</p>
         <div className="flex gap-3">
           <button className="btn bg-gray" onClick={onClickDeleteCultureButton}>
             안 볼래요
@@ -69,7 +70,13 @@ const ReservationListItem = ({ item }) => {
       </div>
       <BaseModal isOpen={isOpen} closeModal={closeModal}>
         {modalOpener === MODAL_OPENER.DELETE && (
-          <CultureDeleteModal category={item.category} title={item.title} closeModal={closeModal} />
+          <CultureDeleteModal
+            category={item.category}
+            title={item.title}
+            closeModal={closeModal}
+            cultureId={item.cultureId}
+            refetch={refetch}
+          />
         )}
         {modalOpener === MODAL_OPENER.INPUT && (
           <ReservationInputModal
@@ -77,10 +84,12 @@ const ReservationListItem = ({ item }) => {
             category={item.category}
             closeModal={closeModal}
             reserved_date={new Date()}
+            cultureId={item.cultureId}
+            refetch={refetch}
           />
         )}
         {modalOpener === MODAL_OPENER.LINK && (
-          <ReservationLinkModal closeModal={closeModal} cultureId={item.culture_id} />
+          <ReservationLinkModal closeModal={closeModal} cultureId={item.cultureId} />
         )}
       </BaseModal>
     </>

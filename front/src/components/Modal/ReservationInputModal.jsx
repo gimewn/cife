@@ -1,12 +1,32 @@
 import { useState } from 'react';
 
+import { updateReservedDate } from '@api/Culture';
+
 import Calendar from '@assets/calendar.svg';
 
 import DatePicker from '@components/DatePicker';
 
-const ReservationInputModal = ({ category, title, reserved_date, closeModal }) => {
+const ReservationInputModal = ({
+  cultureId,
+  category,
+  title,
+  reserved_date,
+  closeModal,
+  refetch,
+}) => {
   const [startDate, setStartDate] = useState(reserved_date);
   const [isDateOpen, setIsDateOpen] = useState(false);
+
+  const onClickConfirmButton = async (e) => {
+    const result = await updateReservedDate(cultureId, startDate);
+
+    if (result == 'fail') {
+      alert('다시 시도해주세요.');
+    } else {
+      closeModal(e.target.closest('.modalBase'));
+      refetch();
+    }
+  };
 
   return (
     <div className="flex flex-col items-center gap-6">
@@ -29,7 +49,9 @@ const ReservationInputModal = ({ category, title, reserved_date, closeModal }) =
         <button className="btn bg-gray w-full" onClick={closeModal}>
           취소
         </button>
-        <button className="btn bg-red w-full">확인</button>
+        <button className="btn bg-red w-full" onClick={onClickConfirmButton}>
+          확인
+        </button>
       </div>
     </div>
   );

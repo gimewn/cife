@@ -1,4 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+
+import { getCulture } from '@api/Culture';
 
 import Star from '@assets/star.svg';
 
@@ -7,15 +10,20 @@ import useModal from '@hooks/useModal';
 import Main from '@components/MainContainer';
 import CultureDetailItem from '@components/Culture/CultureDetailItem';
 import CultureDeleteModal from '@components/Modal/CultureDeleteModal';
+import Loader from '@components/Loader';
 
-import { DUMMY_DATA } from '@util/variable';
 import { PAGE_URL } from '@util/path';
+import { formatDate } from '@util/funcs';
 
 const CultureDetail = () => {
   const params = useParams();
-  const data = DUMMY_DATA[params.cultureId - 1];
+  const { data, isLoading } = useQuery(['cultureInfo', params.cultureId], () =>
+    getCulture(params.cultureId),
+  );
   const { BaseModal, isOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
+
+  if (isLoading) return <Loader />;
 
   const linkText = () => {
     if (data.link) {
@@ -36,10 +44,10 @@ const CultureDetail = () => {
   };
 
   const reservedDateText = () => {
-    if (data.reserved_date) {
+    if (data.reservedDate) {
       return (
         <p>
-          <span className="font-bold text-2xl">{data.reserved_date}</span>
+          <span className="font-bold text-2xl">{data.reservedDate}</span>
           <span>에 예매했어요.</span>
         </p>
       );
@@ -52,14 +60,14 @@ const CultureDetail = () => {
     if (data.saw_date >= new Date()) {
       return (
         <p>
-          <span className="font-bold text-2xl">{data.saw_date}</span>
+          <span className="font-bold text-2xl">{formatDate(data.sawDate)}</span>
           <span>에 관람 예정이에요.</span>
         </p>
       );
     } else {
       return (
         <p>
-          <span className="font-bold text-2xl">{data.saw_date}</span>
+          <span className="font-bold text-2xl">{formatDate(data.sawDate)}</span>
           <span>에 관람했어요.</span>
         </p>
       );
@@ -74,7 +82,6 @@ const CultureDetail = () => {
             <span className="font-bold text-2xl">기대평</span>
             <span>을 작성하셨어요.</span>
           </p>
-          <p>{data.expectation}</p>
         </>
       );
     } else {
@@ -85,14 +92,16 @@ const CultureDetail = () => {
   return (
     <>
       <Main className="w-full">
-        <div className="flex justify-between w-full items-center">
-          <div className="flex gap-2">
-            <h1 className="main-section-title my-0 text-3xl">
-              [{data.category}] {data.title}
-            </h1>
-            {data.is_important && <img src={Star} />}
+        <div className="w-full">
+          <div className="flex justify-between w-full items-center mb-6">
+            <div className="flex gap-2">
+              <h1 className="main-section-title my-0 text-3xl break-all">
+                [{data.category}] {data.title}
+              </h1>
+              {data.isImportant && <img src={Star} />}
+            </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-end">
             <button className="btn bg-black" onClick={openModal}>
               삭제하기
             </button>
@@ -101,7 +110,7 @@ const CultureDetail = () => {
               onClick={() =>
                 navigate(PAGE_URL.CULTURE_EDIT, {
                   state: {
-                    cultureId: data.culture_id,
+                    cultureId: data.cultureId,
                   },
                 })
               }
@@ -110,6 +119,7 @@ const CultureDetail = () => {
             </button>
           </div>
         </div>
+
         <div className="flex flex-col w-full gap-6 mt-8">
           <CultureDetailItem>
             <p className="text-2xl">🔗</p>
@@ -124,14 +134,34 @@ const CultureDetail = () => {
             {sawDateText()}
           </CultureDetailItem>
           <CultureDetailItem>
-            <p className="text-2xl">✍🏻</p>
-            {expectationText()}
+            <>
+              <p className="text-2xl">✍🏻</p>
+              {expectationText()}
+            </>
           </CultureDetailItem>
+          {data.expectation && (
+            <textarea
+              value={data.expectation}
+              disabled
+              className="bg-white w-full min-h-60 rounded-lg p-3 outline-none"
+            ></textarea>
+          )}
           <button
             className="btn bg-purple w-full py-3"
-            onClick={() => navigate(PAGE_URL.REVIEW_EDIT)}
+            onClick={() => {
+              const url = data.reviewId
+                ? PAGE_URL.REVIEW_DETAIL(data.reviewId)
+                : PAGE_URL.REVIEW_EDIT;
+              navigate(url, {
+                state: {
+                  cultureId: data.cultureId,
+                  category: data.category,
+                  title: data.title,
+                },
+              });
+            }}
           >
-            후기 작성하기
+            {data.reviewId ? '후기 보러 가기' : '후기 작성하기'}
           </button>
         </div>
       </Main>

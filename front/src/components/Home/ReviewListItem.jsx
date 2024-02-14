@@ -8,18 +8,21 @@ import useModal from '@hooks/useModal';
 import useStopPropagation from '@hooks/useStopPropagation';
 
 import { PAGE_URL } from '@util/path';
+import { formatDate } from '@util/funcs';
 
-const ReviewListItem = ({ item }) => {
+const ReviewListItem = ({ item, refetch }) => {
   const { BaseModal, isOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
   const onClickListItem = useStopPropagation(() =>
-    navigate(PAGE_URL.CULTURE_DETAIL(item.culture_id)),
+    navigate(PAGE_URL.CULTURE_DETAIL(item.cultureId)),
   );
   const onClickCultureDeleteButton = useStopPropagation(openModal);
   const onClickGoToReviewButton = useStopPropagation(() =>
     navigate(PAGE_URL.REVIEW_EDIT, {
       state: {
-        cultureId: item.culture_id,
+        category: item.category,
+        title: item.title,
+        cultureId: item.cultureId,
       },
     }),
   );
@@ -30,13 +33,13 @@ const ReviewListItem = ({ item }) => {
         className="bg-glass flex flex-col items-center p-8 gap-6 cursor-pointer"
         onClick={onClickListItem}
       >
-        <div className="flex justify-center items-center gap-1">
-          <p className="font-extrabold text-xl">
+        <div className="flex justify-center items-center gap-1 w-full">
+          <p className="font-extrabold text-xl whitespace-nowrap text-ellipsis overflow-hidden">
             [{item.category}] {item.title}
           </p>
-          {item.is_important && <img src={Star} />}
+          {item.isImportant && <img src={Star} />}
         </div>
-        <p>{item.saw_date} 관람</p>
+        <p>{formatDate(item.sawDate)} 관람</p>
         <div className="flex gap-3">
           <button className="btn bg-gray" onClick={onClickCultureDeleteButton}>
             안 봤어요
@@ -47,7 +50,13 @@ const ReviewListItem = ({ item }) => {
         </div>
       </div>
       <BaseModal isOpen={isOpen} closeModal={closeModal}>
-        <CultureDeleteModal category={item.category} title={item.title} closeModal={closeModal} />
+        <CultureDeleteModal
+          category={item.category}
+          title={item.title}
+          closeModal={closeModal}
+          cultureId={item.cultureId}
+          refetch={refetch}
+        />
       </BaseModal>
     </>
   );

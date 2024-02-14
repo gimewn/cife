@@ -1,23 +1,33 @@
 import { useLocation } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
 
-import DatePicker from '@components/DatePicker';
-import Main from '@components/MainContainer';
+import { createCulture, getCulture, updateCulture } from '@api/Culture';
 
 import Calendar from '@assets/calendar.svg';
 import SmileHeart from '@assets/smile_with_heart.png';
 import SlightlySmile from '@assets/slightly_smile.png';
 
+import DatePicker from '@components/DatePicker';
+import Main from '@components/MainContainer';
+
+import { CULTURE_CATEGORY } from '@util/variable';
+import { PAGE_URL } from '@util/path';
+
 const CultureEdit = () => {
   const { state } = useLocation();
 
-  const [category, setCategory] = useState('뮤지컬');
-  const [title, setTitle] = useState();
-  const [link, setLink] = useState();
+  const { data, isLoading } = useQuery(['cultureInfo'], () => getCulture(state.cultureId), {
+    enabled: !!state,
+  });
+
+  const [category, setCategory] = useState(CULTURE_CATEGORY[0]);
+  const [title, setTitle] = useState('');
+  const [link, setLink] = useState('');
   const [sawDate, setSawDate] = useState(new Date());
   const [reserveLimitDate, setReserveLimitDate] = useState(new Date());
   const [isImportant, setIsImportant] = useState(null);
-  const [expectation, setExpectation] = useState();
+  const [expectation, setExpectation] = useState(undefined);
 
   const [sawDateInputIsOpen, setSawDateInputIsOpen] = useState(false);
   const [limitDateInputIsOpen, setLimitDateInputIsOpen] = useState(false);
@@ -27,12 +37,41 @@ const CultureEdit = () => {
   const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
-    setIsCompleted(false);
-    if (!category) return;
-    if (title == false) return;
-    if (isImportant === null) return;
-    setIsCompleted(true);
+    if (!isLoading && data) {
+      setCategory(data.category);
+      setTitle(data.title);
+      setLink(data.link || undefined);
+      setSawDate(data.sawDate || new Date());
+      setReserveLimitDate(data.limitDate || new Date());
+      setIsImportant(data.isImportant != undefined ? data.isImportant : null);
+      setExpectation(data.expectation || undefined);
+    }
+  }, [isLoading, data]);
+
+  useEffect(() => {
+    setIsCompleted(!!category && !!title && isImportant !== null);
   }, [category, title, isImportant]);
+
+  const onClickConfirmButton = async () => {
+    const data = {
+      cultureId: state?.cultureId,
+      categoryId: CULTURE_CATEGORY.indexOf(category) + 1,
+      title: title,
+      sawDate: sawDate,
+      limitDate: reserveLimitDate,
+      isImportant: isImportant,
+      link: link,
+      expectation: expectation,
+    };
+    const func = state ? updateCulture : createCulture;
+    const result = await func(data);
+    if (result == 'success') {
+      alert('완료되었습니다.');
+      window.location.href = PAGE_URL.CULTURE;
+    } else {
+      alert('다시 시도해주세요.');
+    }
+  };
 
   return (
     <Main>
@@ -40,16 +79,16 @@ const CultureEdit = () => {
       <section className="w-full flex flex-col gap-7">
         <div className="w-full flex flex-col gap-3">
           <p className="text-lg font-bold">카테고리를 선택해주세요</p>
-          <div className="bg-white rounded-xl w-fit pr-3">
+          <div className="bg-white rounded-xl w-[130px] pr-3">
             <select
-              className="w-fit outline-none p-3 rounded-xl cursor-pointer"
+              className="w-full outline-none p-3 rounded-xl cursor-pointer"
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="뮤지컬">뮤지컬</option>
-              <option value="전시">전시</option>
-              <option value="콘서트">콘서트</option>
-              <option value="클래식/무용">클래식/무용</option>
-              <option value="스포츠">스포츠</option>
+              {CULTURE_CATEGORY.map((item) => (
+                <option key={item} value={item} selected={category === item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -57,6 +96,7 @@ const CultureEdit = () => {
           <p className="text-lg font-bold">타이틀을 입력해주세요</p>
           <input
             type="text"
+            value={title}
             className="p-3 rounded-xl w-full outline-none"
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -66,6 +106,7 @@ const CultureEdit = () => {
           <input
             type="url"
             className="p-3 rounded-xl w-full outline-none"
+            value={link}
             onChange={(e) => setLink(e.target.value)}
           />
         </div>
@@ -138,12 +179,17 @@ const CultureEdit = () => {
         <div className="w-full flex flex-col gap-3">
           <p className="text-lg font-bold">기대평이 있으신가요?</p>
           <textarea
+            value={expectation}
             className="w-full rounded-xl outline-none p-3 min-h-44"
             onChange={(e) => setExpectation(e.target.value)}
           />
         </div>
         <div className="ml-auto mr-0">
-          <button className={`btn ${isCompleted ? 'bg-black' : 'bg-gray'}`}>
+          <button
+            className={`btn ${isCompleted ? 'bg-black' : 'bg-gray'}`}
+            onClick={onClickConfirmButton}
+            disabled={!isCompleted}
+          >
             {state ? '수정하기' : '등록하기'}
           </button>
         </div>

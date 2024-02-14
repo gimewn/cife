@@ -1,4 +1,16 @@
-const CultureDeleteModal = ({ title, category, closeModal }) => {
+import { deleteCulture } from '@api/Culture';
+
+const CultureDeleteModal = ({ title, category, closeModal, cultureId, refetch }) => {
+  const onClickDeleteButton = async (e) => {
+    const result = await deleteCulture(cultureId);
+    if (result === 'fail') {
+      alert('다시 시도해주세요.');
+    } else {
+      closeModal(e.target.closest('.modalBase'));
+      refetch();
+    }
+  };
+
   return (
     <div className="flex flex-col items-center gap-6">
       <p className="modal-title">
@@ -9,7 +21,9 @@ const CultureDeleteModal = ({ title, category, closeModal }) => {
         <button className="btn bg-gray w-full" onClick={closeModal}>
           취소
         </button>
-        <button className="btn bg-red w-full">삭제</button>
+        <button className="btn bg-red w-full" onClick={onClickDeleteButton}>
+          삭제
+        </button>
       </div>
     </div>
   );

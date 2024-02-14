@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+import { checkIsExist, signup } from '@api/SignUp';
 
 import User from '@assets/user.svg';
 import Lock from '@assets/lock.svg';
@@ -15,9 +17,35 @@ const SignUp = () => {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [isSame, setIsSame] = useState(false);
+  const [isIdExist, setIsIdExist] = useState(true);
+  const navigate = useNavigate();
 
   const checkIsSame = (checkedPassword) => {
     setIsSame(password === checkedPassword);
+  };
+
+  const onClickCheckExistButton = async () => {
+    const result = await checkIsExist(userId);
+    setIsIdExist(result);
+    if (result) {
+      alert('이미 존재하는 아이디입니다.');
+    }
+  };
+
+  const onClickSignUpButton = async () => {
+    if (isIdExist) {
+      alert('아이디 중복 확인을 체크해주세요.');
+    } else if (!isSame) {
+      alert('비밀번호를 다시 한 번 확인해주세요.');
+    } else {
+      const result = await signup(userId, password);
+      if (result === 'success') {
+        alert('회원가입 성공');
+        navigate(PAGE_URL.LOGIN);
+      } else {
+        alert('다시 한 번 시도해주세요.');
+      }
+    }
   };
 
   return (
@@ -32,10 +60,19 @@ const SignUp = () => {
                 type="text"
                 className="outline-none w-full"
                 placeholder="아이디를 입력해주세요."
-                onChange={(e) => setUserId(e.target.value)}
+                onChange={(e) => {
+                  setIsIdExist(true);
+                  setUserId(e.target.value);
+                }}
               />
             </InputBox>
-            <button className="btn bg-red">중복확인</button>
+            <button
+              className={`btn ${isIdExist ? 'bg-red' : 'bg-gray'}`}
+              disabled={!isIdExist}
+              onClick={onClickCheckExistButton}
+            >
+              중복확인
+            </button>
           </div>
           <InputBox>
             <img src={Lock} />
@@ -65,7 +102,9 @@ const SignUp = () => {
           <NavLink to={PAGE_URL.LOGIN}>
             <button className="btn bg-purple">로그인</button>
           </NavLink>
-          <button className="btn bg-red">회원가입</button>
+          <button className="btn bg-red" onClick={onClickSignUpButton}>
+            회원가입
+          </button>
         </div>
       </LoginForm>
     </Main>

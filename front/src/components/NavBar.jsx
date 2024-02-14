@@ -1,13 +1,29 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+import { logout } from '@api/Logout';
 
 import Logo from '@assets/logo.png';
 
 import { PAGE_URL } from '@util/path';
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const checkIsActive = ({ isActive }) => {
     return { fontWeight: isActive ? 800 : undefined };
   };
+
+  const onClickLogoutButton = async () => {
+    const result = await logout();
+    if (result === 'success') {
+      localStorage.removeItem('isLogin');
+      navigate(PAGE_URL.LOGIN);
+    }
+  };
+
+  const checkIsLogin = () => {
+    return localStorage.getItem('isLogin') == 1;
+  };
+
   return (
     <header className="border-black border-b">
       <section className="flex justify-between items-center py-7 px-12">
@@ -27,8 +43,12 @@ const NavBar = () => {
           <NavLink to={PAGE_URL.MONTHLY} style={checkIsActive}>
             <p>월간 문화생활</p>
           </NavLink>
-          <NavLink to={PAGE_URL.LOGIN} style={checkIsActive}>
-            <p>로그인</p>
+          <NavLink
+            to={!checkIsLogin() ? PAGE_URL.LOGIN : ''}
+            style={!checkIsLogin() ? checkIsActive : null}
+            onClick={checkIsLogin() ? onClickLogoutButton : null}
+          >
+            <p>{checkIsLogin() ? '로그아웃' : '로그인'}</p>
           </NavLink>
         </section>
       </section>

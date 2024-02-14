@@ -1,4 +1,16 @@
-const ReservationInitialModal = ({ category, title, closeModal }) => {
+import { deleteReservedDate } from '@api/Culture';
+
+const ReservationInitialModal = ({ cultureId, category, title, closeModal, refetch }) => {
+  const onClickConfirmBUtton = async (e) => {
+    const result = await deleteReservedDate(cultureId);
+    if (result == 'fail') {
+      alert('다시 시도해주세요.');
+    } else {
+      closeModal(e.target.closest('.modalBase'));
+      refetch();
+    }
+  };
+
   return (
     <div className="flex flex-col items-center gap-6">
       <p className="modal-title">
@@ -9,7 +21,9 @@ const ReservationInitialModal = ({ category, title, closeModal }) => {
         <button className="btn bg-gray w-full" onClick={closeModal}>
           취소
         </button>
-        <button className="btn bg-red w-full">확인</button>
+        <button className="btn bg-red w-full" onClick={onClickConfirmBUtton}>
+          확인
+        </button>
       </div>
     </div>
   );

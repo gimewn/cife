@@ -1,15 +1,22 @@
-import Main from '@components/MainContainer';
-import LeftArrow from '@assets/left_arrow.svg';
-import RightArrow from '@assets/right_arrow.svg';
 import { useState } from 'react';
-import { MONTH_NAME } from '@util/variable';
+import { useQuery } from 'react-query';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCards } from 'swiper/modules';
 
+import { getMonthlyCultureList } from '@api/Monthly';
+
+import LeftArrow from '@assets/left_arrow.svg';
+import RightArrow from '@assets/right_arrow.svg';
+
+import Main from '@components/MainContainer';
+import SwiperCard from '@components/Monthly/SwiperCard';
+import Loader from '@components/Loader';
+import Empty from '@components/Empty';
+
+import { MONTH_NAME } from '@util/variable';
+
 import 'swiper/css';
 import 'swiper/css/effect-cards';
-
-import SwiperCard from '@components/Monthly/SwiperCard';
 
 const getNowMonth = () => {
   const now = new Date();
@@ -28,6 +35,12 @@ const Monthly = () => {
   const swiperOptions = {
     slideShadows: false,
   };
+
+  const { data, isLoading } = useQuery(['monthly', year, month], () =>
+    getMonthlyCultureList(year, month),
+  );
+
+  if (isLoading) return <Loader />;
 
   return (
     <Main className="w-full">
@@ -63,54 +76,28 @@ const Monthly = () => {
           }}
         />
       </header>
-      <Swiper
-        effect={'cards'}
-        grabCursor={true}
-        modules={[EffectCards]}
-        className="w-3/4 overflow-visible mt-8"
-        cardsEffect={swiperOptions}
-        loop={true}
-      >
-        <SwiperSlide>
-          <SwiperCard
-            data={{
-              culture_id: 1,
-              category: '뮤지컬',
-              title: '난쟁이들',
-              reserved_date: '2024-11-31',
-              saw_date: '2024-03-15',
-              score: 4,
-              reviewId: 1,
-            }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SwiperCard
-            data={{
-              culture_id: 1,
-              category: '연극',
-              title: '난쟁이들',
-              reserved_date: '2024-11-31',
-              saw_date: '2024-03-15',
-              score: 4,
-              reviewId: 1,
-            }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SwiperCard
-            data={{
-              culture_id: 1,
-              category: '클래식',
-              title: '난쟁이들',
-              reserved_date: '2024-11-31',
-              saw_date: '2024-03-15',
-              score: 4,
-              reviewId: 1,
-            }}
-          />
-        </SwiperSlide>
-      </Swiper>
+      {!data.length && <Empty size="medium" />}
+      {data.length === 1 && (
+        <div className="w-3/4 overflow-visible mt-8">
+          <SwiperCard data={data[0]} />
+        </div>
+      )}
+      {data.length > 1 && (
+        <Swiper
+          effect={'cards'}
+          grabCursor={true}
+          modules={[EffectCards]}
+          className="w-3/4 overflow-visible mt-8"
+          cardsEffect={swiperOptions}
+          loop={true}
+        >
+          {data.map((item) => (
+            <SwiperSlide key={item.cultureId} className="w-full">
+              <SwiperCard data={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </Main>
   );
 };
