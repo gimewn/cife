@@ -12,7 +12,6 @@
     <resultMap id="reviewMap" type="review">
         <result property="reviewId" column="review_id" />
         <result property="cultureId" column="culture_id" />
-        <result property="userId" column="user_id" />
     </resultMap>
 
     <select id="getReviewList" parameterType="Long" resultMap="reviewListMap">
@@ -20,11 +19,12 @@
         from review r
         join culture c using(culture_id)
         join category t using(category_id)
-        where r.user_id = #{userId}
+        where r.reviewer = #{userId}
+        order by r.review_id desc
     </select>
 
     <select id="getReviewWriter" parameterType="Long" resultType="Long">
-        select user_id from review
+        select reviewer from review
         where review_id = #{reviewId}
     </select>
 
@@ -33,8 +33,8 @@
     </select>
 
     <insert id="postReview" parameterType="review">
-        insert into review(user_id, culture_id, score, contents)
-        values(#{userId}, #{cultureId}, #{score}, #{contents})
+        insert into review(reviewer, culture_id, score, contents)
+        values(#{reviewer}, #{cultureId}, #{score}, #{contents})
     </insert>
 
     <update id="putReview" parameterType="review">

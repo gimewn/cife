@@ -1,6 +1,8 @@
 package com.cife.Cife.controller;
 
 import com.cife.Cife.dto.CultureDTO;
+import com.cife.Cife.dto.ReservedDateDTO;
+import com.cife.Cife.repository.CultureRepository;
 import com.cife.Cife.service.CultureService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -49,18 +51,23 @@ public class CultureController {
 
     @PutMapping
     @Operation(summary = "문화생활 수정", description = "특정 문화생활을 수정합니다.")
-    public ResponseEntity<?> updateCulture(@RequestParam("culture_id") Long cultureId, @SessionAttribute Long userId, @RequestBody CultureDTO cultureDTO){
+    public ResponseEntity<?> updateCulture(@RequestParam Long cultureId, @SessionAttribute Long userId, @RequestBody CultureDTO cultureDTO){
+        Map<String, String> response = new HashMap<>();
 
         if(!checkCultureAuth(cultureId, userId)){
-            return ResponseEntity.status(403).body("해당 유저가 등록한 문화생활이 아닙니다.");
+            response.put("result", "해당 유저가 등록한 문화생활이 아닙니다.");
+            return ResponseEntity.status(403).body(response);
+        }
+
+        if(!cultureService.checkIsExistCategory(cultureDTO.getCategoryId())){
+            response.put("result", "존재하는 카테고리가 아닙니다.");
+            return ResponseEntity.badRequest().body(response);
         }
 
         cultureDTO.setCultureId(cultureId);
         cultureDTO.setUserId(userId);
 
         int updateResult = cultureService.updateCulture(cultureDTO);
-
-        Map<String, String> response = new HashMap<>();
 
         if(updateResult >= 1){
             response.put("result", "success");
@@ -119,7 +126,7 @@ public class CultureController {
 
         if(getResult != null){
             response.put("result", getResult);
-            return ResponseEntity.ok().body(getResult);
+            return ResponseEntity.ok().body(response);
         }else{
             response.put("result", "해당 유저의 문화생활 목록이 존재하지 않습니다.");
             return ResponseEntity.ok().body("해당 유저의 문화생활 목록이 존재하지 않습니다.");
@@ -128,7 +135,7 @@ public class CultureController {
 
     @PatchMapping("/reservation")
     @Operation(summary = "예매일 수정", description = "특정 문화생활의 예매일을 수정합니다.")
-    public ResponseEntity<?> patchReservedDate(@RequestParam Long cultureId, @SessionAttribute Long userId, @RequestBody Date date){
+    public ResponseEntity<?> patchReservedDate(@RequestParam Long cultureId, @SessionAttribute Long userId, @RequestBody ReservedDateDTO reservedDateDTO){
 
         Map<String, String> response = new HashMap<>();
 
@@ -140,7 +147,7 @@ public class CultureController {
         Map<String, Object> patchParam = new HashMap<>();
 
         patchParam.put("cultureId", cultureId);
-        patchParam.put("date", date);
+        patchParam.put("date", reservedDateDTO.getDate());
 
         int patchResult = cultureService.updateReservedDate(patchParam);
 

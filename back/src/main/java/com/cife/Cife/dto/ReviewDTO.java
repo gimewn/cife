@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class ReviewDTO {
     private Long reviewId;
-    private Long userId;
+    private Long reviewer;
     private Long cultureId;
     private Integer score;
     private String contents;
