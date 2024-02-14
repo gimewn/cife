@@ -72,20 +72,27 @@ const Monthly = () => {
           }}
         />
       </header>
-      <Swiper
-        effect={'cards'}
-        grabCursor={true}
-        modules={[EffectCards]}
-        className="w-3/4 overflow-visible mt-8"
-        cardsEffect={swiperOptions}
-        loop={true}
-      >
-        {data.map((item) => (
-          <SwiperSlide key={item.cultureId}>
-            <SwiperCard data={item} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {data.length > 1 && (
+        <Swiper
+          effect={'cards'}
+          grabCursor={true}
+          modules={[EffectCards]}
+          className="w-3/4 overflow-visible mt-8"
+          cardsEffect={swiperOptions}
+          loop={true}
+        >
+          {data.map((item) => (
+            <SwiperSlide key={item.cultureId} className="w-full">
+              <SwiperCard data={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
+      {data.length === 1 && (
+        <div className="w-3/4 overflow-visible mt-8">
+          <SwiperCard data={data[0]} />
+        </div>
+      )}
     </Main>
   );
 };

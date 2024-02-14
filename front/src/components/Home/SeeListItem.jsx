@@ -39,8 +39,8 @@ const SeeListItem = ({ item, refetch }) => {
         onClick={onClickListItem}
       >
         <p className="d-day-title">D-{item.dday}</p>
-        <div className="flex justify-center items-center gap-1">
-          <p className="font-extrabold text-xl">
+        <div className="flex justify-center items-center gap-1 w-full">
+          <p className="font-extrabold text-xl whitespace-nowrap text-ellipsis overflow-hidden">
             [{item.category}] {item.title}
           </p>
           {item.isImportant && <img src={Star} />}

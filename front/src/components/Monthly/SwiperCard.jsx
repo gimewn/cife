@@ -17,10 +17,10 @@ const SwiperCard = ({ data }) => {
 
   return (
     <div
-      className="bg-white rounded-xl py-10 px-10 flex justify-center flex-col items-center gap-6"
+      className="w-full bg-white rounded-xl py-10 px-10 flex justify-center flex-col items-center gap-6 "
       onClick={onClickCard}
     >
-      <h1 className="text-xl font-bold">
+      <h1 className="w-full text-xl font-bold whitespace-nowrap text-ellipsis overflow-hidden text-center">
         [{data.category}] {data.title}
       </h1>
       <div className="flex gap-2 mb-2">
@@ -38,7 +38,7 @@ const SwiperCard = ({ data }) => {
         {data.sawDate && (
           <p>
             <span className="text-red font-bold">{formatDate(data.sawDate)}</span>
-            <span>에 관람했어요.</span>
+            <span>{data.sawDate > new Date() ? '에 관람했어요.' : '에 관람 예정이에요.'}</span>
           </p>
         )}
       </div>

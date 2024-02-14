@@ -39,8 +39,8 @@ const ReviewListItem = ({ reviewId, category, title, isImportant, sawDate, refet
         className="bg-glass flex flex-col items-center p-8 gap-6 cursor-pointer w-full"
         onClick={onClickReviewListItem}
       >
-        <div className="flex items-center gap-2">
-          <p className="font-extrabold text-xl">
+        <div className="flex items-center gap-2 justify-center w-full">
+          <p className="font-extrabold text-xl whitespace-nowrap text-ellipsis overflow-hidden">
             [{category}] {title}
           </p>
           {isImportant && <img src={Star} />}

@@ -49,11 +49,11 @@ const ReservationListItem = ({ item, refetch }) => {
         onClick={onClickListItem}
       >
         <p className="d-day-title">D-{item.dday}</p>
-        <div className="flex justify-center items-center gap-1">
-          <p className="font-extrabold text-xl">
+        <div className="flex justify-center items-center gap-1 w-full">
+          <p className="font-extrabold text-xl whitespace-nowrap text-ellipsis overflow-hidden">
             [{item.category}] {item.title}
           </p>
-          {item.is_important && <img src={Star} />}
+          {item.isImportant && <img src={Star} />}
         </div>
         <p className="font-semibold">{formatDate(item.sawDate)} 관람 예정</p>
         <div className="flex gap-3">

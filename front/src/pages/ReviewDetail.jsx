@@ -16,7 +16,7 @@ const ReviewDetail = () => {
   const { reviewId } = useParams();
   const { state } = useLocation();
 
-  const { data, isLoading } = useQuery(['reviewInfo'], () => getReview(reviewId));
+  const { data, isLoading } = useQuery(['reviewInfo', reviewId], () => getReview(reviewId));
 
   if (isLoading) return <Loader />;
 

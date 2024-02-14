@@ -31,8 +31,8 @@ const CultureListItem = ({ cultureId, title, category, isImportant, sawDate, ref
         className="bg-glass w-full h-full cursor-pointer first-letter:rounded-xl flex justify-center items-center p-8 flex-col gap-5"
         onClick={onClickListItem}
       >
-        <div className="flex gap-1 items-center">
-          <p className="text-lg font-extrabold">
+        <div className="flex gap-1 items-center w-full justify-center">
+          <p className="text-lg font-extrabold whitespace-nowrap text-ellipsis overflow-hidden">
             [{category}] {title}
           </p>
           {isImportant && <img src={Star} />}

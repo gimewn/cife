@@ -33,8 +33,8 @@ const ReviewListItem = ({ item, refetch }) => {
         className="bg-glass flex flex-col items-center p-8 gap-6 cursor-pointer"
         onClick={onClickListItem}
       >
-        <div className="flex justify-center items-center gap-1">
-          <p className="font-extrabold text-xl">
+        <div className="flex justify-center items-center gap-1 w-full">
+          <p className="font-extrabold text-xl whitespace-nowrap text-ellipsis overflow-hidden">
             [{item.category}] {item.title}
           </p>
           {item.isImportant && <img src={Star} />}

@@ -12,9 +12,13 @@ import { PAGE_URL } from '@util/path';
 const ReviewEdit = () => {
   const { state } = useLocation();
 
-  const { data, isLoading } = useQuery(['reviewInfo'], () => getReview(state.reviewId), {
-    enabled: !!state.reviewId,
-  });
+  const { data, isLoading } = useQuery(
+    ['reviewInfo', state.reviewId],
+    () => getReview(state.reviewId),
+    {
+      enabled: !!state.reviewId,
+    },
+  );
 
   const [score, setScore] = useState(0);
   const [contents, setContents] = useState();

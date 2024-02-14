@@ -17,7 +17,9 @@ import { formatDate } from '@util/funcs';
 
 const CultureDetail = () => {
   const params = useParams();
-  const { data, isLoading } = useQuery(['cultureInfo'], () => getCulture(params.cultureId));
+  const { data, isLoading } = useQuery(['cultureInfo', params.cultureId], () =>
+    getCulture(params.cultureId),
+  );
   const { BaseModal, isOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
@@ -93,7 +95,7 @@ const CultureDetail = () => {
         <div className="w-full">
           <div className="flex justify-between w-full items-center mb-6">
             <div className="flex gap-2">
-              <h1 className="main-section-title my-0 text-3xl">
+              <h1 className="main-section-title my-0 text-3xl break-all">
                 [{data.category}] {data.title}
               </h1>
               {data.isImportant && <img src={Star} />}
@@ -146,16 +148,20 @@ const CultureDetail = () => {
           )}
           <button
             className="btn bg-purple w-full py-3"
-            onClick={() =>
-              navigate(PAGE_URL.REVIEW_EDIT, {
+            onClick={() => {
+              const url = data.reviewId
+                ? PAGE_URL.REVIEW_DETAIL(data.reviewId)
+                : PAGE_URL.REVIEW_EDIT;
+              navigate(url, {
                 state: {
+                  cultureId: data.cultureId,
                   category: data.category,
                   title: data.title,
                 },
-              })
-            }
+              });
+            }}
           >
-            후기 작성하기
+            {data.reviewId ? '후기 보러 가기' : '후기 작성하기'}
           </button>
         </div>
       </Main>
