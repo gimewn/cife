@@ -1,15 +1,16 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+
+import { getReview } from '@api/Review';
 
 import ScoreStar from '@assets/score_star.svg';
 import ScoreStarDisabled from '@assets/score_star_disabled.svg';
 import SmileKitty from '@assets/smile_kitty.png';
 
 import Main from '@components/MainContainer';
+import Loader from '@components/Loader';
 
 import { PAGE_URL } from '@util/path';
-import { useQuery } from 'react-query';
-import { getReview } from '@api/Review';
-import Loader from '@components/Loader';
 
 const ReviewDetail = () => {
   const navigate = useNavigate();

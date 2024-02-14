@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
+import { getCulture } from '@api/Culture';
+
 import Star from '@assets/star.svg';
 
 import useModal from '@hooks/useModal';
@@ -11,8 +13,6 @@ import CultureDeleteModal from '@components/Modal/CultureDeleteModal';
 import Loader from '@components/Loader';
 
 import { PAGE_URL } from '@util/path';
-
-import { getCulture } from '@api/Culture';
 import { formatDate } from '@util/funcs';
 
 const CultureDetail = () => {

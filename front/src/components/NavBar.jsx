@@ -1,10 +1,10 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import { logout } from '@api/Logout';
+
 import Logo from '@assets/logo.png';
 
 import { PAGE_URL } from '@util/path';
-import { useEffect, useState } from 'react';
-import { logout } from '@api/Logout';
 
 const NavBar = () => {
   const navigate = useNavigate();

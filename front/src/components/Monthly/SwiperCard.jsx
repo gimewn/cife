@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 import Star from '@assets/m_star.svg';
 import StarDisabled from '@assets/m_star_disabled.svg';
+
 import useStopPropagation from '@hooks/useStopPropagation';
+
 import { formatDate } from '@util/funcs';
 import { PAGE_URL } from '@util/path';
-import { useNavigate } from 'react-router-dom';
 
 const SwiperCard = ({ data }) => {
   const navigate = useNavigate();

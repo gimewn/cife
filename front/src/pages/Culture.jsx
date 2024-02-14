@@ -1,14 +1,15 @@
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+
+import { getAllCultureList } from '@api/Culture';
+
 import PlusButton from '@assets/plus_button.svg';
 
 import Main from '@components/MainContainer';
 import CultureListItem from '@components/Culture/CultureListItem';
-
-import { DUMMY_DATA } from '@util/variable';
-import { useNavigate } from 'react-router-dom';
-import { PAGE_URL } from '@util/path';
-import { useQuery } from 'react-query';
-import { getAllCultureList } from '@api/Culture';
 import Loader from '@components/Loader';
+
+import { PAGE_URL } from '@util/path';
 
 const Culture = () => {
   const navigate = useNavigate();

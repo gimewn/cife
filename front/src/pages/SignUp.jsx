@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+
+import { checkIsExist, signup } from '@api/SignUp';
 
 import User from '@assets/user.svg';
 import Lock from '@assets/lock.svg';
@@ -10,7 +12,6 @@ import Main from '@components/MainContainer';
 import InputBox from '@components/InputBox';
 
 import { PAGE_URL } from '@util/path';
-import { checkIsExist, signup } from '@api/SignUp';
 
 const SignUp = () => {
   const [userId, setUserId] = useState('');

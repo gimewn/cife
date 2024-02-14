@@ -1,9 +1,10 @@
+import { useQuery } from 'react-query';
+
 import { getSeeList } from '@api/Home';
+
 import Empty from '@components/Empty';
 import SeeListItem from '@components/Home/SeeListItem';
 import Loader from '@components/Loader';
-
-import { useQuery } from 'react-query';
 
 const SeeList = () => {
   const { data, isLoading, refetch } = useQuery(['homeSeeList'], getSeeList);

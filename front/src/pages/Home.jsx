@@ -11,7 +11,6 @@ import SeeList from '@components/Home/SeeList';
 import ReviewList from '@components/Home/ReveiwList';
 
 import { CATEGORY } from '@util/variable';
-import Loader from '@components/Loader';
 
 const Home = () => {
   const [category, setCategory] = useState(CATEGORY.RESERVATION);

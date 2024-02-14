@@ -1,7 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { PAGE_URL } from '@util/path';
-
 import Home from '@pages/Home';
 import Login from '@pages/Login';
 import SignUp from '@pages/SignUp';
@@ -12,9 +10,11 @@ import CultureDetail from '@pages/CultureDetail';
 import ReviewDetail from '@pages/ReviewDetail';
 import CultureEdit from '@pages/CultureEdit';
 import ReviewEdit from '@pages/ReviewEdit';
+import NotFound from '@pages/NotFound';
 
 import NavBar from '@components/NavBar';
-import NotFound from '@pages/NotFound';
+
+import { PAGE_URL } from '@util/path';
 import AuthRequiredRoutes from '@util/AuthRequiredRoutes';
 import AuthManageRoutes from '@util/AuthManageRoutes';
 

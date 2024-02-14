@@ -1,10 +1,11 @@
-import Main from '@components/MainContainer';
-import { DUMMY_DATA } from '@util/variable';
-import ReviewListItem from '@components/Review/ReviewListItem';
 import { useQuery } from 'react-query';
-import { getReviewList } from '@api/Review';
+
+import Main from '@components/MainContainer';
+import ReviewListItem from '@components/Review/ReviewListItem';
 import Loader from '@components/Loader';
 import Empty from '@components/Empty';
+
+import { getReviewList } from '@api/Review';
 
 const Review = () => {
   const { data, isLoading, refetch } = useQuery(['reviewList'], getReviewList);
