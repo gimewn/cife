@@ -3,10 +3,10 @@ import Router from './Router';
 
 function App() {
   useEffect(() => {
-    console.log(`...Λ＿Λ
+    console.log(`   ...Λ＿Λ
     （ㆍωㆍ)つ━☆*。
     ⊂　　 ノ 　　　.카
-    　し-Ｊ　　　°。이 *´¨)
+    　し-Ｊ　　　    °。이 *´¨)
     　　　　　　..　.· ´¸.·프*´¨) ¸.·*¨)
     　　　　　　　　　　(¸.·´ (¸.'*
     `);
