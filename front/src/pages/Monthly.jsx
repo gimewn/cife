@@ -13,6 +13,7 @@ import 'swiper/css/effect-cards';
 import SwiperCard from '@components/Monthly/SwiperCard';
 import { getMonthlyCultureList } from '@api/Monthly';
 import Loader from '@components/Loader';
+import Empty from '@components/Empty';
 
 const getNowMonth = () => {
   const now = new Date();
@@ -72,6 +73,12 @@ const Monthly = () => {
           }}
         />
       </header>
+      {!data.length && <Empty size="medium" />}
+      {data.length === 1 && (
+        <div className="w-3/4 overflow-visible mt-8">
+          <SwiperCard data={data[0]} />
+        </div>
+      )}
       {data.length > 1 && (
         <Swiper
           effect={'cards'}
@@ -87,11 +94,6 @@ const Monthly = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-      )}
-      {data.length === 1 && (
-        <div className="w-3/4 overflow-visible mt-8">
-          <SwiperCard data={data[0]} />
-        </div>
       )}
     </Main>
   );

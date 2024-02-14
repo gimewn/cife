@@ -38,7 +38,9 @@ const SwiperCard = ({ data }) => {
         {data.sawDate && (
           <p>
             <span className="text-red font-bold">{formatDate(data.sawDate)}</span>
-            <span>{data.sawDate > new Date() ? '에 관람했어요.' : '에 관람 예정이에요.'}</span>
+            <span>
+              {new Date(data.sawDate) < new Date() ? '에 관람했어요.' : '에 관람 예정이에요.'}
+            </span>
           </p>
         )}
       </div>

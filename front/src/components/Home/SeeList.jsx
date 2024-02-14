@@ -1,4 +1,5 @@
 import { getSeeList } from '@api/Home';
+import Empty from '@components/Empty';
 import SeeListItem from '@components/Home/SeeListItem';
 import Loader from '@components/Loader';
 
@@ -13,7 +14,7 @@ const SeeList = () => {
     <div className="flex justify-start flex-col">
       <h1 className="main-section-title">관람을 기다리고 있어요.</h1>
       <div className="flex flex-col gap-8">
-        {data.length < 1 && <p>아무거또 없어요</p>}
+        {data.length < 1 && <Empty />}
         {data.map((item) => (
           <SeeListItem key={item.cultureId} item={item} refetch={refetch} />
         ))}
