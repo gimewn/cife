@@ -61,7 +61,7 @@ public class ReviewController {
     @PostMapping
     @Operation(summary = "후기 등록", description = "후기를 등록합니다.")
     public ResponseEntity<?> postReview(@SessionAttribute Long userId, @RequestBody ReviewDTO reviewDTO){
-        reviewDTO.setUserId(userId);
+        reviewDTO.setReviewer(userId);
         int postResult = reviewService.postReview(reviewDTO);
 
         Map<String, String> response = new HashMap<>();

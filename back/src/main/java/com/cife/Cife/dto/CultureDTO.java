@@ -22,4 +22,5 @@ public class CultureDTO {
     private Boolean isImportant;
     private String link;
     private String expectation;
+    private Long reviewId;
 }

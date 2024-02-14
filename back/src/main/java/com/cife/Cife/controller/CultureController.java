@@ -69,8 +69,6 @@ public class CultureController {
 
         int updateResult = cultureService.updateCulture(cultureDTO);
 
-
-
         if(updateResult >= 1){
             response.put("result", "success");
             return ResponseEntity.ok().body(response);
