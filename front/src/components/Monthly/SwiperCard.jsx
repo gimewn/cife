@@ -12,10 +12,17 @@ const SwiperCard = ({ data }) => {
   const navigate = useNavigate();
   const onClickCard = useStopPropagation(() => navigate(PAGE_URL.CULTURE_DETAIL(data.cultureId)));
   const onClickSeeReviewButton = useStopPropagation(() =>
-    navigate(PAGE_URL.REVIEW_DETAIL(data.reviewId)),
+    navigate(PAGE_URL.REVIEW_DETAIL(data.reviewId), {
+      state: {
+        category: data.category,
+        title: data.title,
+      },
+    }),
   );
   const onClickWriteReviewButton = useStopPropagation(() =>
-    navigate(PAGE_URL.REVIEW_EDIT, { state: { cultureId: data.cultureId } }),
+    navigate(PAGE_URL.REVIEW_EDIT, {
+      state: { cultureId: data.cultureId, category: data.category, title: data.title },
+    }),
   );
 
   return (
