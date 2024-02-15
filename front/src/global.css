@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background: radial-gradient(ellipse at top, #ff6060, transparent),
+      radial-gradient(ellipse at bottom, #9345e1, transparent);
+    background-repeat: no-repeat;
+    font-family: 'SUIT', 'Abril Fatface', sans-serif;
+    font-weight: 500;
+    min-height: 100vh;
+    padding-bottom: 50px;
+  }
+
+  h1,
+  p {
+    line-height: 1;
+  }
+}
+
+@layer components {
+  .navBar_menu {
+    font-weight: 500;
+  }
+
+  .bg-glass {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .bg-focus-white {
+    background: white;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .bg-modal {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  .base {
+    padding-top: 50px;
+    max-width: 29.75rem;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn {
+    @apply rounded-lg py-2 px-3 text-white w-fit;
+  }
+
+  .main-section-title {
+    @apply my-10 text-2xl font-extrabold;
+  }
+
+  .d-day-title {
+    font-family: 'Abril Fatface';
+    @apply text-5xl;
+  }
+
+  .modal-title {
+    @apply font-extrabold text-2xl;
+  }
+}
+
+/* 스크롤바 커스텀 */
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  height: 30%;
+  background: #9345e1;
+
+  border-radius: 15px;
+}
+
+.react-datepicker__input-container input {
+  width: 95px;
+}
+
+select {
+  -webkit-appearance: none; /* for chrome */
+
+  -moz-appearance: none; /*for firefox*/
+
+  appearance: none;
+}
+
+select::-ms-expand {
+  display: none; /*for IE10,11*/
+}
+
+select {
+  background: url('assets/down_arrow.svg') no-repeat 97% 50%/15px auto;
+}
+
+.swiper-slide-prev div,
+.swiper-slide-next div {
+  @apply bg-slate-200;
+}
